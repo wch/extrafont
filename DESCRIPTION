@@ -1,0 +1,15 @@
+Package: extrafont
+Title: Tools for using other fonts
+Version: 0.0.1
+Author: Winston Chang <winston@stdout.org>
+Maintainer: Winston Chang <winston@stdout.org>
+Description: Tools to using fonts other than the standard PostScript fonts
+Depends:
+    R (>= 2.14)
+Imports:
+    devtools
+License: GPL-2
+Collate:
+    'utils.r'
+    'bisect.r'
+    'truetype.r'

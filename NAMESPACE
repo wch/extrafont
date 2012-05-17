@@ -1,0 +1,8 @@
+export(bisect_install)
+export(bisect_load_all)
+export(bisect_require)
+export(bisect_return_interactive)
+export(bisect_runtest)
+importFrom(devtools,dev_mode)
+importFrom(devtools,install)
+importFrom(devtools,load_all)
