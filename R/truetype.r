@@ -13,6 +13,8 @@ load_ttf_dir <-
 
   ttfiles <- normalizePath(list.files(paths, pattern = ".ttf$", full.names=TRUE))
 
+  # This message really belongs in ttf_scan_files, but the pathnames
+  # are lost by that point...
   message("Scanning ttf files in ", paste(paths, collapse=", "), " ...")
   fontdata <- ttf_scan_files(ttfiles)
 
@@ -39,6 +41,8 @@ ttf_scan_files <- function(ttfiles) {
   ttf2pt1 <- which_ttf2pt1()
 
   for (i in seq_along(ttfiles)) {
+    message(ttfiles[i])
+
     # The options tell it to not create any output files.
     # We'll scan the text output to get the FontName
     ret <- system2(ttf2pt1, c("-Gfae", shQuote(ttfiles[i])),
