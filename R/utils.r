@@ -17,6 +17,10 @@ afm_path <- function() {
   file.path(inst_path(), "afm")
 }
 
+afm_table_file <- function() {
+  file.path(inst_path(), "afm", "afm_table.csv")
+}
+
 # Path for the Fontmap
 fontmap_file <- function() {
   file.path(inst_path(), "fontmap", "Fontmap")

@@ -10,5 +10,6 @@ Imports:
     devtools
 License: GPL-2
 Collate:
-    'utils.r'
     'truetype.r'
+    'utils.r'
+    'ps_fontdata.r'

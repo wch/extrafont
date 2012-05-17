@@ -11,7 +11,7 @@
 load_ttf_dir <- 
   function(paths = c("/Library/Fonts", "/System/Library/Fonts")) {
 
-  ttfiles <- normalizePath(list.files(paths, pattern = ".ttf$", full.names=TRUE))
+  ttfiles <- normalizePath(list.files(paths, pattern = "\\.ttf$", full.names=TRUE))
 
   # This message really belongs in ttf_scan_files, but the pathnames
   # are lost by that point...
@@ -43,6 +43,8 @@ ttf_scan_files <- function(ttfiles) {
   for (i in seq_along(ttfiles)) {
     message(ttfiles[i])
 
+    # This runs:
+    #  ttf2pt1 -Gfae /Library/Fonts/Impact.ttf
     # The options tell it to not create any output files.
     # We'll scan the text output to get the FontName
     ret <- system2(ttf2pt1, c("-Gfae", shQuote(ttfiles[i])),
@@ -97,6 +99,8 @@ ttf_extract_afm <- function(ttfiles) {
   for (i in seq_along(ttfiles)) {
     message(ttfiles[i], " => ", paste(outfiles[i], ".afm", sep=""))
 
+    # This runs:
+    #  ttf2pt1 -GfAe /Library/Fonts/Impact.ttf /out/path/Impact
     # The -GfAe options tell it to only create the .afm file, and not the
     # .t1a/pfa/pfb or .enc files. Run 'ttf2pt1 -G?' for more info.
     ret <- system2(ttf2pt1, 
