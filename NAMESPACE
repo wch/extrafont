@@ -1,4 +1,4 @@
 export(afm_save_table)
 export(embedExtraFonts)
-export(load_ttf_dir)
+export(import_ttf_dir)
 export(setupPdfFonts)

@@ -8,7 +8,7 @@
 # - Create a Fontmap file
 # TODO: Modularize font search path (for other platforms)
 #' @export
-load_ttf_dir <- 
+import_ttf_dir <-
   function(paths = c("/Library/Fonts", "/System/Library/Fonts")) {
 
   ttfiles <- normalizePath(list.files(paths, pattern = "\\.ttf$", full.names=TRUE))
@@ -25,7 +25,6 @@ load_ttf_dir <-
   write_fontmap(fontdata)
 
   ttf_extract_afm(fontdata$filename)
-
 }
 
 
