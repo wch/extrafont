@@ -8,10 +8,12 @@
 # - Create a Fontmap file
 # TODO: Modularize font search path (for other platforms)
 #' @export
-import_ttf_dir <-
-  function(paths = c("/Library/Fonts", "/System/Library/Fonts")) {
+import_ttf_dir <- function(paths = NULL, recursive = TRUE) {
 
-  ttfiles <- normalizePath(list.files(paths, pattern = "\\.ttf$", full.names=TRUE))
+  if (is.null(paths))  paths <- find_default_truetype_path()
+
+  ttfiles <- normalizePath(list.files(paths, pattern = "\\.ttf$",
+                                      full.names=TRUE, recursive = recursive))
 
   # This message really belongs in ttf_scan_files, but the pathnames
   # are lost by that point...
@@ -20,7 +22,7 @@ import_ttf_dir <-
 
   # Drop fonts with no name or "Unknown" name
   fontdata <- subset(fontdata, fontname != "" & fontname != "Unknown")
-  message("Found FontName for ", length(fontdata), " fonts.")
+  message("Found FontName for ", nrow(fontdata), " fonts.")
 
   write_fontmap(fontdata)
 
@@ -39,8 +41,10 @@ ttf_scan_files <- function(ttfiles) {
 
   ttf2pt1 <- which_ttf2pt1()
 
+  message("Displaying filename: FontName")
+
   for (i in seq_along(ttfiles)) {
-    message(ttfiles[i])
+    message(ttfiles[i], ": ", appendLF = FALSE)
 
     # This runs:
     #  ttf2pt1 -Gfae /Library/Fonts/Impact.ttf
@@ -55,6 +59,8 @@ ttf_scan_files <- function(ttfiles) {
     } else if (sum(fontnameidx) > 1) {
       warning("More than one FontName found for ", ttfiles[i])
     }
+
+    message(fontdata$fontname[i])
   }
 
   return(fontdata)
@@ -109,9 +115,28 @@ ttf_extract_afm <- function(ttfiles) {
 
 }
 
-
 # Previously, this also allowed using ttf2afm to do the afm extraction,
 # but the afm files created by ttf2afm didn't work with R.
 # The command for ttf2afm was:
 #   ttf2afm Impact.ttf -o Impact.afm
 
+
+# Returns vector of default truetype paths, depending on platform.
+find_default_truetype_path <- function() {
+  os <- sessionInfo()$R.version$os
+
+  if (grepl("^darwin", os)) {
+    return(c("/Library/Fonts", "/System/Library/Fonts"))
+
+  } else if (grepl("^linux-gnu", os)) {
+    # Possible font paths, depending on the system
+    paths <-
+      c("/usr/share/fonts/truetype/",         # Ubuntu/Debian
+        "/usr/X11R6/lib/X11/fonts/TrueType/")  # RH 6
+    return(paths[file.exists(paths)])
+
+  } else {
+    error("Unknown platform. Sorry!")
+  }
+
+}

@@ -12,5 +12,5 @@ License: GPL-2
 Collate:
     'truetype.r'
     'utils.r'
-    'ps_fontdata.r'
     'afm.r'
+    'load.r'

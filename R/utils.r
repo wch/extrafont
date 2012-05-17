@@ -1,6 +1,6 @@
 # Borrowed this from staticdocs
 inst_path <- function() {
-  srcref <- attr(load_ttf_dir, "srcref")
+  srcref <- attr(inst_path, "srcref")
 
   if (is.null(srcref)) {
     # Probably in package
