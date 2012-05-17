@@ -16,7 +16,7 @@ setupPdfFonts <- function() {
 
     # There should be >1 entry for a given weight of a font only for weird
     # fonts like Apple Braille. Skip this iteration of the loop.
-    if (length(regular) > 1  ||  length(bold)        > 1  ||
+    if (length(regular) > 1  ||  length(bold)       > 1  ||
         length(italic)  > 1  ||  length(bolditalic) > 1) {
       next()
     }
@@ -30,8 +30,8 @@ setupPdfFonts <- function() {
     }
 
     # If there aren't bold/italic entries, inherit the afm info from regular
-    if (length(bold)      == 0)   bold       <- regular
-    if (length(italic)    == 0)   italic     <- regular
+    if (length(bold)       == 0)   bold      <- regular
+    if (length(italic)     == 0)   italic    <- regular
     if (length(bolditalic) == 0)  bolditalic <- bold
 
     # Now we can register the font with R, with something like this:
@@ -43,6 +43,14 @@ setupPdfFonts <- function() {
       file.path(afm_path(), c(regular, bold, italic, bolditalic))))
   }
 
+}
+
+
+#' Embeds fonts that are listed in the local Fontmap
+#' @export
+embedExtraFonts <- function(file, format, outfile = file, options = "") {
+  embedFonts(file = file, format = format, outfile = outfile,
+             options = paste("-I", fontmap_path(), sep = ""))
 }
 
 
