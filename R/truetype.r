@@ -7,51 +7,105 @@
 #   is properly installed as a package)
 # - Create a Fontmap file
 # TODO: Modularize font search path (for other platforms)
+#' @export
 load_ttf_dir <- 
   function(paths = c("/Library/Fonts", "/System/Library/Fonts")) {
 
   ttfiles <- normalizePath(list.files(paths, pattern = ".ttf$", full.names=TRUE))
 
-  # Extract afm files
-  ttf_extract_afm(ttfiles)
+  message("Scanning ttf files in ", paste(paths, collapse=", "), " ...")
+  fontdata <- ttf_scan_files(ttfiles)
 
-  # Build fontmap
+  # Drop fonts with no name or "Unknown" name
+  fontdata <- subset(fontdata, fontname != "" & fontname != "Unknown")
+  message("Found FontName for ", length(fontdata), " fonts.")
+
+  write_fontmap(fontdata)
+
+  ttf_extract_afm(fontdata$filename)
 
 }
 
+
+# Scans ttf files in a vector, and returns a data frame with:
+# - filename: 
+# - fontname:
+# - valid:
+ttf_scan_files <- function(ttfiles) {
+
+  fontdata <- data.frame(filename = ttfiles, fontname = "", 
+                         stringsAsFactors = FALSE)
+
+  ttf2pt1 <- which_ttf2pt1()
+
+  for (i in seq_along(ttfiles)) {
+    # The options tell it to not create any output files.
+    # We'll scan the text output to get the FontName
+    ret <- system2(ttf2pt1, c("-Gfae", shQuote(ttfiles[i])),
+                   stdout = TRUE, stderr = TRUE)
+
+    fontnameidx <- grepl("^FontName ", ret)
+    if (sum(fontnameidx) == 1) {
+      fontdata$fontname[i] <- sub("^FontName ", "", ret[fontnameidx])
+    } else if (sum(fontnameidx) > 1) {
+      warning("More than one FontName found for ", ttfiles[i])
+    }
+  }
+
+  return(fontdata)
+}
+
+# Writes the Fontmap file
+write_fontmap <- function(fontdata) {
+  outfile <- file.path(fontmap_path(), "Fontmap")
+
+  message("Writing Fontmap to ", outfile, "...")
+
+
+  # Output format is:
+  # /Arial-BoldMT (/Library/Fonts/Arial Bold.ttf) ;
+  writeLines(
+    paste("/", fontdata$fontname, " (", fontdata$filename, ") ;", sep=""),
+    outfile)
+}
+
+
+# Finds the executable for ttf2pt1
+which_ttf2pt1 <- function() {
+  if (.Platform$OS.type == "unix") {
+    Sys.which("ttf2pt1")
+  } else if (.Platform$OS.type == "windows") {
+    # TODO: Check that this is the correct name in Windows
+    Sys.which("ttf2pt1.exe")
+  } else {
+    error("Unknown platform: ", .Platform$OS.type)
+  }
+}
 
 
 #' Extract afm files from TrueType fonts.
 ttf_extract_afm <- function(ttfiles) {
+  message("Extracting afm files from ttf files...")
 
-  # First find the conversion utility
-  if (.Platform$OS.type == "unix") {
-    ttf2afm <- Sys.which("ttf2afm")
-    ttf2pt1 <- Sys.which("ttf2pt1")
-  } else if (.Platform$OS.type == "windows") {
-    # TODO: Check that these are the correct names in Windows
-    ttf2afm <- Sys.which("ttf2afm.exe")
-    ttf2pt1 <- Sys.which("ttf2pt1.exe")
-  } else {
-    error("Unknown platform: ", .Platform$OS.type)
+  outfiles <- file.path(afm_path(), sub("\\.ttf$", "", basename(ttfiles)))
+
+  ttf2pt1 <- which_ttf2pt1()
+
+  for (i in seq_along(ttfiles)) {
+    message(ttfiles[i], " => ", paste(outfiles[i], ".afm", sep=""))
+
+    # The -GfAe options tell it to only create the .afm file, and not the
+    # .t1a/pfa/pfb or .enc files. Run 'ttf2pt1 -G?' for more info.
+    ret <- system2(ttf2pt1, 
+                   c("-GfAe", shQuote(ttfiles[i]), shQuote(outfiles[i])),
+                   stdout = TRUE, stderr = TRUE)
   }
 
-  if (!nzchar(ttf2afm)) {
-    # Convert using ttf2afm
-    outfiles <- file.path(afm_path(), sub("\\.ttf$", ".afm", basename(ttfiles)))
-    
-    for (i in seq_along(ttfiles)) {
-      system2(ttf2afm, c(shQuote(ttfiles[i]), "-o", shQuote(outfiles[i])))
-    }
-
-  } else if (nzchar(ttf2pt1)) {
-    # Convert using ttf2pt1
-    outfiles <- file.path(afm_path(), sub("\\.ttf$", "", basename(ttfiles)))
-
-    for (i in seq_along(ttfiles)) {
-      # The options tell it to only create the .afm file, and not the
-      # .t1a/pfa/pfb or .enc files. Run 'ttf2pt1 -G?' for more info.
-      system2(ttf2pt1, c("-GfAe", shQuote(ttfiles[i]), shQuote(outfiles[i])))
-    }
-  }
 }
+
+
+# Previously, this also allowed using ttf2afm to do the afm extraction,
+# but the afm files created by ttf2afm didn't work with R.
+# The command for ttf2afm was:
+#   ttf2afm Impact.ttf -o Impact.afm
+

@@ -11,5 +11,4 @@ Imports:
 License: GPL-2
 Collate:
     'utils.r'
-    'bisect.r'
     'truetype.r'
