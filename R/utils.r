@@ -17,6 +17,7 @@ afm_path <- function() {
   file.path(inst_path(), "afm")
 }
 
-fontmap_path <- function() {
-  file.path(inst_path(), "fontmap")
+# Path for the Fontmap
+fontmap_file <- function() {
+  file.path(inst_path(), "fontmap", "Fontmap")
 }

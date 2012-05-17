@@ -57,10 +57,9 @@ ttf_scan_files <- function(ttfiles) {
 
 # Writes the Fontmap file
 write_fontmap <- function(fontdata) {
-  outfile <- file.path(fontmap_path(), "Fontmap")
+  outfile <- fontmap_file()
 
   message("Writing Fontmap to ", outfile, "...")
-
 
   # Output format is:
   # /Arial-BoldMT (/Library/Fonts/Arial Bold.ttf) ;
