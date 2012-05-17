@@ -1,14 +1,50 @@
+#' Reads the saved afm table, then registers those fonts with R.
+#'
+#' This must be run once in each R session.
+#'
+#' @export
+setupPdfFonts <- function() {
+  afmdata <- afm_load_table()
 
+  for (family in unique(afmdata$FamilyName)) {
+    famdata <- subset(afmdata, FamilyName == family)
 
-# Need to extract full name also
-#pdfFonts(
+    regular    <- subset(famdata, Bold == FALSE & Italic == FALSE)$afmfile
+    bold       <- subset(famdata, Bold == TRUE  & Italic == FALSE)$afmfile
+    italic     <- subset(famdata, Bold == FALSE & Italic == TRUE)$afmfile
+    bolditalic <- subset(famdata, Bold == TRUE  & Italic == TRUE)$afmfile
 
-# pdfFonts("Times New Roman" = Type1Font("Times New Roman",
-#   file.path(afmpath,
-#     c("Times New Roman.afm", 
-#       "Times New Roman Bold.afm", 
-#       "Times New Roman Italic.afm",
-#       "Times New Roman Bold Italic.afm"))))
+    # There should be >1 entry for a given weight of a font only for weird
+    # fonts like Apple Braille. Skip this iteration of the loop.
+    if (length(regular) > 1  ||  length(bold)        > 1  ||
+        length(italic)  > 1  ||  length(bolditalic) > 1) {
+      next()
+    }
+
+    # There should be a regular entry for most every font. Exceptions
+    # include Brush Script MT.
+    if (length(regular) == 0) {
+      warning("No regular (non-bold, non-italic) version of ", family,
+              ". Skipping setup for this font.")
+      next()
+    }
+
+    # If there aren't bold/italic entries, inherit the afm info from regular
+    if (length(bold)      == 0)   bold       <- regular
+    if (length(italic)    == 0)   italic     <- regular
+    if (length(bolditalic) == 0)  bolditalic <- bold
+
+    # Now we can register the font with R, with something like this:
+    # pdfFonts("Arial" = Type1Font("Arial",
+    #   file.path(afmpath, c("Arial.afm", "Arial Bold.afm",
+    #                        "Arial Italic.afm", "Arial Italic.afm"))))
+    message("Registering font with R using pdfFonts(): ", family)
+    pdfFonts(family = Type1Font(family,
+      file.path(afm_path(), c(regular, bold, italic, bolditalic))))
+  }
+
+}
+
 
 # Scans all the .afm files and saves a csv file with information about them.
 #' @export
@@ -55,8 +91,8 @@ afm_get_info <- function(filename) {
   if (grepl("Italic", weight))  Italic = TRUE
   else                          Italic = FALSE
 
-  data.frame(FamilyName, FontName, FullName, Bold, Italic,
-    stringsAsFactors = FALSE)
+  data.frame(FamilyName, FontName, FullName, afmfile = basename(filename),
+             Bold, Italic, stringsAsFactors = FALSE)
 }
 
 
