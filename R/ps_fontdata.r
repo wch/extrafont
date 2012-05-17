@@ -47,7 +47,16 @@ afm_get_info <- function(filename) {
   FontName   <- sub("^FontName ",   "", text[grepl("^FontName",   text)])
   FullName   <- sub("^FullName ",   "", text[grepl("^FullName",   text)])
 
-  data.frame(FamilyName, FontName, FullName, stringsAsFactors = FALSE)
+  # Read in the Weight field and figure out of it's Bold and/or Italic
+  weight <- sub("^Weight ",   "", text[grepl("^Weight",   text)])
+  if (grepl("Bold",   weight))  Bold = TRUE
+  else                          Bold = FALSE
+
+  if (grepl("Italic", weight))  Italic = TRUE
+  else                          Italic = FALSE
+
+  data.frame(FamilyName, FontName, FullName, Bold, Italic,
+    stringsAsFactors = FALSE)
 }
 
 
