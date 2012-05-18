@@ -13,6 +13,12 @@ font_save_table <- function(fontmap = NULL) {
   write.csv(fontdata, file = font_table_file(), row.names = FALSE)
 }
 
+#' Show the fonts that are in the font table (and available for embedding)
+#'
+#' @export
+fonts <- function() {
+  unique(font_load_table()$FamilyName)
+}
 
 #' @export
 font_load_table <- function() {

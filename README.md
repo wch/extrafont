@@ -58,9 +58,15 @@ This does the following:
 This table will be used when making plots with R.
 * Creates a file `Fontmap`, which contains the mapping from FontName to the .ttf file. This is required by Ghostscript for embedding fonts.
 
+
+You can view the resulting table of font information with:
+
 ```R
-# You can view the resulting font table with:
+# Show entire table
 font_load_table()
+
+# Vector of font family names
+fonts()
 ```
 
 If you install new fonts on your computer, you'll have to redo this stage to re-import them for R.
@@ -125,7 +131,7 @@ If a font is embedded, it will say "Embedded subset"; otherwise it will say "Not
 
 *****
 
-# Miscellaneous
+# Installation notes
 
 ## Compiling `ttf2pt1` from source
 
