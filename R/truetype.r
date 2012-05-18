@@ -76,8 +76,11 @@ write_fontmap <- function(fontdata) {
 
   # Output format is:
   # /Arial-BoldMT (/Library/Fonts/Arial Bold.ttf) ;
+  # For Windows, it works with a '/', or a '\\':
+  # /Arial-BoldMT (C:/Windows/Fonts/Arial Bold.ttf) ;
   writeLines(
-    paste("/", fontdata$fontname, " (", fontdata$filename, ") ;", sep=""),
+    paste("/", fontdata$fontname, " (", escapepath_os(fontdata$filename),
+      ") ;", sep=""),
     outfile)
 }
 
@@ -137,8 +140,10 @@ find_default_truetype_path <- function() {
         "/usr/X11R6/lib/X11/fonts/TrueType/")  # RH 6
     return(paths[file.exists(paths)])
 
+  } else if (grepl("^mingw", os)) {
+    return(paste(Sys.getenv("SystemRoot"), "\\Fonts", sep=""))
   } else {
-    error("Unknown platform. Sorry!")
+    stop("Unknown platform. Sorry!")
   }
 
 }

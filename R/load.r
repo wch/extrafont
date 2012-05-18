@@ -68,5 +68,5 @@ setupPdfFonts <- function() {
 #' @export
 embedExtraFonts <- function(file, format, outfile = file, options = "") {
   embedFonts(file = file, format = format, outfile = outfile,
-             options = paste("-I", fontmap_path(), sep = ""))
+             options = paste("-I", shQuote(fixpath_os(fontmap_path())), sep = ""))
 }
