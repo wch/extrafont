@@ -44,7 +44,7 @@ There are three categories of things you need to do to use TrueType fonts:
 First, import the TrueType fonts installed on the system.
 
 ```R
-import_ttf_dir()
+ttf_import()
 # This tries to autodetect the directory containing the TrueType fonts.
 # If it fails on your system, please let me know.
 ```

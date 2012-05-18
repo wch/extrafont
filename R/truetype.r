@@ -7,10 +7,12 @@
 #   is properly installed as a package)
 # - Create a Fontmap file
 # TODO: Modularize font search path (for other platforms)
+#' Imports all TrueType fonts in a directory and all subdirectories
+#'
 #' @export
-import_ttf_dir <- function(paths = NULL, recursive = TRUE) {
+ttf_import <- function(paths = NULL, recursive = TRUE) {
 
-  if (is.null(paths))  paths <- find_default_truetype_path()
+  if (is.null(paths))  paths <- ttf_find_default_path()
 
   ttfiles <- normalizePath(list.files(paths, pattern = "\\.ttf$",
                                       full.names=TRUE, recursive = recursive))
@@ -127,7 +129,7 @@ ttf_extract_afm <- function(ttfiles) {
 
 
 # Returns vector of default truetype paths, depending on platform.
-find_default_truetype_path <- function() {
+ttf_find_default_path <- function() {
   os <- sessionInfo()$R.version$os
 
   if (grepl("^darwin", os)) {
