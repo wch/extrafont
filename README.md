@@ -76,7 +76,7 @@ setupPdfFonts()
 If you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows notes down below)
 
 ```R
-# This is needed on Windows.
+# This is needed only on Windows
 # (adjust the path to match your installation of Ghostscript)
 Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 ```

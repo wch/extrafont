@@ -24,7 +24,7 @@ font_table_file <- function() {
 
 
 fontmap_path <- function() {
-  file.path(inst_path(), "Fontmap")
+  file.path(inst_path(), "fontmap")
 }
 
 # Fontmap file
