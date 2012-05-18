@@ -46,11 +46,14 @@ afm_get_info <- function(filename) {
   if (grepl("Italic", weight))  Italic = TRUE
   else                          Italic = FALSE
 
+  if (grepl("Oblique", weight)) Oblique = TRUE
+  else                          Oblique = FALSE
+
   data.frame(FamilyName, FontName, FullName, afmfile = basename(filename),
-             Bold, Italic, stringsAsFactors = FALSE)
+             Bold, Italic, Oblique, stringsAsFactors = FALSE)
 }
 
-
+#' @export
 afm_load_table <- function() {
   read.csv(afm_table_file(), stringsAsFactors = FALSE)
 }

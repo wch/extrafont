@@ -7,17 +7,24 @@ setupPdfFonts <- function() {
   afmdata <- afm_load_table()
 
   for (family in unique(afmdata$FamilyName)) {
-    famdata <- subset(afmdata, FamilyName == family)
+    # All entries for this family
+    fd <- subset(afmdata, FamilyName == family)
 
-    regular    <- subset(famdata, Bold == FALSE & Italic == FALSE)$afmfile
-    bold       <- subset(famdata, Bold == TRUE  & Italic == FALSE)$afmfile
-    italic     <- subset(famdata, Bold == FALSE & Italic == TRUE)$afmfile
-    bolditalic <- subset(famdata, Bold == TRUE  & Italic == TRUE)$afmfile
+    regular     <- fd$afmfile[!fd$Bold & !fd$Italic & !fd$Oblique]
+    bold        <- fd$afmfile[ fd$Bold & !fd$Italic & !fd$Oblique]
+    italic      <- fd$afmfile[!fd$Bold &  fd$Italic & !fd$Oblique]
+    bolditalic  <- fd$afmfile[ fd$Bold &  fd$Italic & !fd$Oblique]
+    # Some fonts have an oblique version (mutually exclusive with italic).
+    # If italic is NOT present, we'll use oblique as the italic face.
+    # If italic is present, we'll ignore oblique.
+    oblique     <- fd$afmfile[!fd$Bold & !fd$Italic & fd$Oblique]
+    boldoblique <- fd$afmfile[ fd$Bold & !fd$Italic & fd$Oblique]
 
     # There should be >1 entry for a given weight of a font only for weird
-    # fonts like Apple Braille. Skip this iteration of the loop.
+    # fonts like Apple Braille. If found, skip this iteration of the loop.
     if (length(regular) > 1  ||  length(bold)       > 1  ||
-        length(italic)  > 1  ||  length(bolditalic) > 1) {
+        length(italic)  > 1  ||  length(bolditalic) > 1  ||
+        length(oblique) > 1  ||  length(boldoblique) > 1) {
       next()
     }
 
@@ -30,9 +37,15 @@ setupPdfFonts <- function() {
     }
 
     # If there aren't bold/italic entries, inherit the afm info from regular
-    if (length(bold)       == 0)   bold      <- regular
-    if (length(italic)     == 0)   italic    <- regular
-    if (length(bolditalic) == 0)  bolditalic <- bold
+    if (length(bold)       == 0)    bold      <- regular
+    if (length(italic)     == 0) {
+      if (length(oblique) == 1)     italic    <- oblique
+      else                          italic    <- regular
+    }
+    if (length(bolditalic) == 0) {
+      if (length(boldoblique) == 1) bolditalic <- boldoblique
+      else                          bolditalic <- bold
+    }
 
     # Now we can register the font with R, with something like this:
     # pdfFonts("Arial" = Type1Font("Arial",
