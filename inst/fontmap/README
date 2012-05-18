@@ -1,3 +1,7 @@
-This directory is where the Fontmap is stored. This file is used by
-GhostScript for embedding fonts. It is also used by the extrafont package
-to figure out how to map fonts for pdfFonts() and Type1Font().
+This directory is where the font table and Fontmap is stored.
+
+font_table.csv is a small database containing information about the fonts.
+It is used by the extrafont package for generating the Fontmap file, and for
+registering fonts with R for use with PDFs.
+
+The Fontmap file is used by GhostScript for embedding fonts.

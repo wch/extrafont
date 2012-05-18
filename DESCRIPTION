@@ -12,3 +12,4 @@ Collate:
     'load.r'
     'truetype.r'
     'utils.r'
+    'font.r'

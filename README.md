@@ -53,17 +53,17 @@ This does the following:
 
 * Finds the TrueType fonts on your system.
 * Extracts the FontName (like ArialNarrow-BoldItalic).
-* Creates a file `Fontmap`, which contains the mapping from FontName to the .ttf file. This is required by Ghostscript for embedding fonts.
 * Extracts/converts a PostScript .afm file for each font. This file contains the *font metrics*, which are the rectangular dimensions of each character that are needed for placement of the characters. These are not the *glyphs*, which the curves defining the visual shape of each character. The glyphs are only in the .ttf file.
 * Scan all the resulting .afm files, and save a table with information about them.
 This table will be used when making plots with R.
+* Creates a file `Fontmap`, which contains the mapping from FontName to the .ttf file. This is required by Ghostscript for embedding fonts.
 
 ```R
-# You can view the resulting afm font table with:
-afm_load_table()
+# You can view the resulting font table with:
+font_load_table()
 ```
 
-If you install new fonts, you'll have to redo this stage.
+If you install new fonts on your computer, you'll have to redo this stage to re-import them for R.
 
 ## Run each R session
 
@@ -76,7 +76,8 @@ setupPdfFonts()
 If you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows notes down below)
 
 ```R
-# Adjust the path to match your installation of Ghostscript
+# This is needed on Windows.
+# (adjust the path to match your installation of Ghostscript)
 Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 ```
 

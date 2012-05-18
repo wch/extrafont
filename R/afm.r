@@ -1,15 +1,3 @@
-# 
-
-
-#' Scans all the .afm files and saves a csv file with information about them.
-#' @export
-afm_save_table <- function() {
-  afmdata <- afm_scan_files()
-
-  message("Saving afm table in ", afm_table_file())
-  write.csv(afmdata, file = afm_table_file(), row.names = FALSE)
-}
-
 
 # Reads all the .afm files and builds a table of information about them. 
 afm_scan_files <- function() {
@@ -51,9 +39,4 @@ afm_get_info <- function(filename) {
 
   data.frame(FamilyName, FontName, FullName, afmfile = basename(filename),
              Bold, Italic, Oblique, stringsAsFactors = FALSE)
-}
-
-#' @export
-afm_load_table <- function() {
-  read.csv(afm_table_file(), stringsAsFactors = FALSE)
 }

@@ -4,11 +4,11 @@
 #'
 #' @export
 setupPdfFonts <- function() {
-  afmdata <- afm_load_table()
+  fontdata <- font_load_table()
 
-  for (family in unique(afmdata$FamilyName)) {
+  for (family in unique(fontdata$FamilyName)) {
     # All entries for this family
-    fd <- subset(afmdata, FamilyName == family)
+    fd <- subset(fontdata, FamilyName == family)
 
     regular     <- fd$afmfile[!fd$Bold & !fd$Italic & !fd$Oblique]
     bold        <- fd$afmfile[ fd$Bold & !fd$Italic & !fd$Oblique]
