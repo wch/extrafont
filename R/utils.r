@@ -1,14 +1,15 @@
 # Borrowed this from staticdocs
 inst_path <- function() {
-  srcref <- attr(inst_path, "srcref")
+  envname <- environmentName(environment(inst_path))
 
-  if (is.null(srcref)) {
-    # Probably in package
+  # If installed in package, envname == "extrafont"
+  # If loaded with load_all, envname == "package:extrafont"
+  # (This is kind of strange)
+  if (envname == "extrafont") {
     system.file(package = "extrafont")
   } else {
-    # Probably in development
-    file.path(dirname(dirname(attr(srcref, "srcfile")$filename)),
-      "inst")
+    srcfile <- attr(attr(inst_path, "srcref"), "srcfile")
+    file.path(dirname(dirname(srcfile$filename)), "inst")
   }
 }
 
