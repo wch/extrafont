@@ -39,8 +39,12 @@ setupPdfFonts <- function() {
     #   file.path(afmpath, c("Arial.afm", "Arial Bold.afm",
     #                        "Arial Italic.afm", "Arial Italic.afm"))))
     message("Registering font with R using pdfFonts(): ", family)
-    pdfFonts(family = Type1Font(family,
-      file.path(afm_path(), c(regular, bold, italic, bolditalic))))
+    # Since 'family' is a string containing the name of the argument, we
+    # need to use do.call
+    args <- list()
+    args[[family]] <- Type1Font(family, file.path(afm_path(),
+                        c(regular, bold, italic, bolditalic)))
+    do.call(pdfFonts, args)
   }
 
 }
