@@ -14,12 +14,12 @@ It currently doesn't work on Windows.
 
 You must have the following installed on your system:
 
-* Ghostscript - must be compiled with TrueType support enabled.
+* Ghostscript - must be compiled with TrueType support enabled. It is used for embedding fonts into PDF files.
 * [`ttf2pt1`](http://ttf2pt1.sourceforge.net/): This program converts TrueType fonts to PostScript. Specifically, it convets/extracts .afm font metric files.
   * Mac: If you have [homebrew](http://mxcl.github.com/homebrew/) installed, you can simply install with `brew install ttf2pt1`.
   * Linux: You will have to compile from source. Please see instructions below.
 
-TexLive includes a program called `ttf2afm` for extracting afm from ttf files.
+The TexLive distribution includes a program called `ttf2afm` for extracting afm files from ttf files.
 However, the resulting afm files appear to be incompatible with R.
 (If you happen to know how to make them work with R, please let me know!)
 
@@ -73,6 +73,13 @@ This registers each of the fonts in the afm table with R. This is needed for R t
 setupPdfFonts()
 ```
 
+If you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows notes down below)
+
+```R
+# Adjust the path to match your installation of Ghostscript
+Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
+```
+
 
 ## Run for each output file
 
@@ -121,7 +128,7 @@ If a font is embedded, it will say "Embedded subset"; otherwise it will say "Not
 
 ## Compiling `ttf2pt1` from source
 
-This really isn't that difficult. These instructions are for Linux.
+This may be needed for Linux, but it really isn't that difficult.
 
 * Download and untar the [source code](http://ttf2pt1.sourceforge.net/download.html).
 * Edit the Makefile, changing the following lines.
@@ -141,3 +148,20 @@ CFLAGS_SYS= -O2 -D_GNU_SOURCE
 
 * Run `make`.
 * Copy the file `ttf2pt1` to a directory in your path, like `~/bin/` or `/usr/local/bin/`.
+
+
+## Windows installation notes
+
+In Windows, you need to make sure that:
+
+* Ghostscript is installed
+* A `ttf2pt1` binary is installed and in the system search path. For the time being, it is probably easiest to put it your working directory (but this will probably be improved in the future).
+
+In each R session where you embed fonts, you will need to tell R where Ghostscript is installed.
+For example, when Ghostscript 9.05 is installed to the default location, running this command will do it (adjust the path for your installation):
+
+```R
+Sys.setenv(R_GSCMD="C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
+
+# After this is done, you can run embedExtraFonts()
+```
