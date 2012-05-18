@@ -6,11 +6,9 @@ Maintainer: Winston Chang <winston@stdout.org>
 Description: Tools to using fonts other than the standard PostScript fonts
 Depends:
     R (>= 2.14)
-Imports:
-    devtools
 License: GPL-2
 Collate:
-    'truetype.r'
-    'utils.r'
     'afm.r'
     'load.r'
+    'truetype.r'
+    'utils.r'
