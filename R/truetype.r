@@ -27,6 +27,8 @@ import_ttf_dir <- function(paths = NULL, recursive = TRUE) {
   write_fontmap(fontdata)
 
   ttf_extract_afm(fontdata$filename)
+
+  afm_save_table()
 }
 
 

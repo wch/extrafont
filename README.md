@@ -55,15 +55,11 @@ This does the following:
 * Extracts the FontName (like ArialNarrow-BoldItalic).
 * Creates a file `Fontmap`, which contains the mapping from FontName to the .ttf file. This is required by Ghostscript for embedding fonts.
 * Extracts/converts a PostScript .afm file for each font. This file contains the *font metrics*, which are the rectangular dimensions of each character that are needed for placement of the characters. These are not the *glyphs*, which the curves defining the visual shape of each character. The glyphs are only in the .ttf file.
-
-
-After you've imported the TrueType fonts, you need to scan all the resulting .afm files, and save a table with information about them.
+* Scan all the resulting .afm files, and save a table with information about them.
 This table will be used when making plots with R.
 
 ```R
-afm_save_table()
-
-# You can view the resulting font table with:
+# You can view the resulting afm font table with:
 afm_load_table()
 ```
 
