@@ -70,13 +70,18 @@ ttf_scan_files <- function(ttfiles) {
 # Finds the executable for ttf2pt1
 which_ttf2pt1 <- function() {
   if (.Platform$OS.type == "unix") {
-    Sys.which("ttf2pt1")
+    p <- Sys.which("ttf2pt1")
   } else if (.Platform$OS.type == "windows") {
     # TODO: Check that this is the correct name in Windows
-    Sys.which("ttf2pt1.exe")
+    p <- Sys.which("ttf2pt1.exe")
   } else {
-    error("Unknown platform: ", .Platform$OS.type)
+    stop("Unknown platform: ", .Platform$OS.type)
   }
+
+  if (p == "")
+    stop("ttf2pt1 not found in path.")
+
+  return(p)
 }
 
 
