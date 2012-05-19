@@ -2,10 +2,16 @@
 
 The extrafont package makes it easier to use fonts other than the basic PostScript fonts that R uses, such as system TrueType fonts.
 
+There are two hurdles for using fonts in PDF (or Postscript) output files:
+
+* Making R aware of the font and the dimensions of the characters.
+* Embedding the fonts so that the PDF can be displayed properly on a device that doesn't have the font.
+
+The extrafont package makes both of these things easier.
+
 Presently it allows the use of TrueType fonts with R.
-Support for other kinds of fonts will (hopefully) be added.
-It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04.
-It currently doesn't work on Windows.
+Support for other kinds of fonts will be added in the future.
+It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04 and Windows XP.
 
 
 # Using extrafont
@@ -14,15 +20,10 @@ It currently doesn't work on Windows.
 
 You must have the following installed on your system:
 
-* Ghostscript - must be compiled with TrueType support enabled. It is used for embedding fonts into PDF files.
+* Ghostscript: This is used for embedding fonts into PDF files.
 * [`ttf2pt1`](http://ttf2pt1.sourceforge.net/): This program converts TrueType fonts to PostScript. Specifically, it convets/extracts .afm font metric files.
   * Mac: If you have [homebrew](http://mxcl.github.com/homebrew/) installed, you can simply install with `brew install ttf2pt1`.
   * Linux: You will have to compile from source. Please see instructions below.
-
-The TexLive distribution includes a program called `ttf2afm` for extracting afm files from ttf files.
-However, the resulting afm files appear to be incompatible with R.
-(If you happen to know how to make them work with R, please let me know!)
-
 
 You can install the extrafont package directly from GitHub:
 
@@ -79,7 +80,7 @@ This registers each of the fonts in the afm table with R. This is needed for R t
 setupPdfFonts()
 ```
 
-If you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows notes down below)
+If you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows installation notes below.)
 
 ```R
 # This is needed only on Windows
@@ -92,10 +93,10 @@ Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 
 After you create a PDF output file, you should *embed* the fonts into the file.
 The 14 PostScript *base fonts* never need to be embedded, because they are included with every PostScript/PDF renderer.
-However, these extra fonts aren't necessarily available on other devices, so they should be embedded.
-The `embedExtraFonts()` function will do this for you.
+However, the extra fonts aren't necessarily available on other devices, so they should be embedded.
+The `embedExtraFonts()` function will do this.
 
-Here's an example using a plot made with ggplot2. (Run only the plots that use fonts available on your system.)
+Here's an example of a PDF plot made with ggplot2. (Run only the plots that use fonts available on your system.)
 
 ```R
 pdf('fonttest.pdf', width=4, height=4)
@@ -111,7 +112,7 @@ p + opts(axis.title.x=theme_text(size=16, family="Droid Serif", colour="red"))
 dev.off()
 ```
 
-The first time you use a font, it may throw some warnings about unkown characters, but the output looks OK to me.
+The first time you use a font, it may throw some warnings about unknown characters.
 
 
 After creating the PDF file, embed the fonts:
