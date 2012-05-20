@@ -70,18 +70,24 @@ ttf_scan_files <- function(ttfiles) {
 # Finds the executable for ttf2pt1
 which_ttf2pt1 <- function() {
   if (.Platform$OS.type == "unix") {
-    p <- Sys.which("ttf2pt1")
+    bin <- "ttf2pt1"
   } else if (.Platform$OS.type == "windows") {
-    # TODO: Check that this is the correct name in Windows
-    p <- Sys.which("ttf2pt1.exe")
+    bin <- "ttf2pt1.exe"
   } else {
     stop("Unknown platform: ", .Platform$OS.type)
   }
 
-  if (p == "")
-    stop("ttf2pt1 not found in path.")
+  # First check if it was installed with the package
+  binpath <- file.path(inst_path(), "libs", .Platform$r_arch, bin)
+  if (file.exists(binpath))
+    return(binpath)
 
-  return(p)
+  # If we didn't find it installed with the package, check search path
+  binpath <- Sys.which(bin)
+  if (binpath == "")
+    stop(bin, " not found in path.")
+  else
+    return(binpath)
 }
 
 
