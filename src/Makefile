@@ -1,13 +1,8 @@
-# Run make in SUBDIRS
-
-SUBDIRS	= ttf2pt1
-
+# Run make all in subdirs
 all:
-	@for i in $(SUBDIRS); do \
-	echo "make all in $$i..."; \
-	(cd $$i; $(MAKE) $(MFLAGS) $(MYMAKEFLAGS) all); done
+	echo "make all in ttf2pt1..."
+	(cd ttf2pt1; $(MAKE) $(MFLAGS) $(MYMAKEFLAGS) all)
 
 clean:
-	@for i in $(SUBDIRS); do \
-	echo "make all in $$i..."; \
-	(cd $$i; $(MAKE) $(MFLAGS) $(MYMAKEFLAGS) clean); done
+	echo "make veryclean in ttf2pt1..."
+	(cd ttf2pt1; $(MAKE) $(MFLAGS) $(MYMAKEFLAGS) veryclean)
