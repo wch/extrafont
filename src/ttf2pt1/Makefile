@@ -20,7 +20,7 @@
 #
 # Default
 
-CFLAGS_SYS= -O
+CFLAGS_SYS= -O -w
 
 # For GNU C
 #
