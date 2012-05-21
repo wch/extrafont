@@ -70,7 +70,7 @@ ttf_extract <- function(ttfiles) {
   fontdata <- data.frame(fontfile = ttfiles, FontName = "", 
                          stringsAsFactors = FALSE)
 
-  outfiles <- file.path(afm_path(), sub("\\.ttf$", "", basename(ttfiles)))
+  outfiles <- file.path(metrics_path(), sub("\\.ttf$", "", basename(ttfiles)))
 
   ttf2pt1 <- which_ttf2pt1()
 

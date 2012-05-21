@@ -14,8 +14,8 @@ inst_path <- function() {
 }
 
 # Path for the afm files
-afm_path <- function() {
-  file.path(inst_path(), "afm")
+metrics_path <- function() {
+  file.path(inst_path(), "metrics")
 }
 
 font_table_file <- function() {

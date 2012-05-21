@@ -59,13 +59,13 @@ setupPdfFonts <- function() {
     if (is.na(encfile))
       encfile <- "default"
     else
-      encfile <- file.path(afm_path(), encfile)
+      encfile <- file.path(metrics_path(), encfile)
 
     # Since 'family' is a string containing the name of the argument, we
     # need to use do.call
     args <- list()
     args[[family]] <- Type1Font(family,
-                        metrics = file.path(afm_path(),
+                        metrics = file.path(metrics_path(),
                           c(regular, bold, italic, bolditalic)),
                         encoding = encfile)
     do.call(pdfFonts, args)

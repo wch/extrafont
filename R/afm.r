@@ -1,8 +1,8 @@
 
 # Reads all the .afm files and builds a table of information about them. 
 afm_scan_files <- function() {
-  message("Scanning afm files in ", afm_path())
-  afmfiles <- normalizePath(list.files(afm_path(), pattern = "\\.afm$", full.names=TRUE))
+  message("Scanning afm files in ", metrics_path())
+  afmfiles <- normalizePath(list.files(metrics_path(), pattern = "\\.afm$", full.names=TRUE))
 
   # Build a table of information of all the afm files
   afmdata <- lapply(afmfiles, afm_get_info)
@@ -11,7 +11,7 @@ afm_scan_files <- function() {
   # The .enc files should have the same base name as the .afm files
   afmdata$encfile <- sub("\\.afm$", ".enc", afmdata$afmfile)
   # Check that each .enc file exists; if not, set to NA
-  afmdata$encfile[!file.exists(file.path(afm_path(), afmdata$encfile))] <- NA
+  afmdata$encfile[!file.exists(file.path(metrics_path(), afmdata$encfile))] <- NA
 
   afmdata
 }
