@@ -28,7 +28,7 @@ ttf_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
   fontmap <- ttf_extract(ttfiles)
 
   # Drop fonts with no name
-  fontmap <- subset(fontmap, !is.na(FontName))
+  fontmap <- fontmap[!is.na(fontmap$FontName), ]
   message("Found FontName for ", nrow(fontmap), " fonts.")
 
   font_save_table(fontmap)

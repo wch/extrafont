@@ -8,7 +8,7 @@ setupPdfFonts <- function() {
 
   for (family in unique(fontdata$FamilyName)) {
     # All entries for this family
-    fd <- subset(fontdata, FamilyName == family)
+    fd <- fontdata[fontdata$FamilyName == family, ]
 
     regular     <- fd$afmfile[!fd$Bold & !fd$Italic]
     bold        <- fd$afmfile[ fd$Bold & !fd$Italic]
