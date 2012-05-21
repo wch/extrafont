@@ -173,3 +173,8 @@ Sys.setenv(R_GSCMD="C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 
 # After this is done, you can run embedExtraFonts()
 ```
+
+# Licensing notes
+
+This product includes software developed by the TTF2PT1 Project and its contributors.
+See `src/ttf2pt1/COPYRIGHT` for more information.
