@@ -7,7 +7,15 @@
 #' Imports all TrueType fonts in a directory and all subdirectories
 #'
 #' @export
-ttf_import <- function(paths = NULL, recursive = TRUE) {
+ttf_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
+
+  if (prompt) {
+    resp <- readline("Importing fonts may take a few minutes, depending on the number of fonts and the speed of the system. Continue? [y/n] ")
+    if (tolower(resp) != "y") {
+      message("Exiting.")
+      return(invisible())
+    }
+  }
 
   if (is.null(paths))  paths <- ttf_find_default_path()
 
