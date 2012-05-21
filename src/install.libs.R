@@ -1,5 +1,5 @@
 # Copy ttf2pt1/ttf2pt1 or ttf2pt1/ttf2pt1.exe binary
-files <- file.path("ttf2pt1", if (WINDOWS) "tt2fp21.exe" else "ttf2pt1")
+files <- file.path("ttf2pt1", if (WINDOWS) "ttf2pt1.exe" else "ttf2pt1")
 
 # Default installation (from R extensions doc)
 libarch <- if (nzchar(R_ARCH)) paste('libs', R_ARCH, sep='') else 'libs'
