@@ -122,7 +122,7 @@ ttf_find_default_path <- function() {
   os <- sessionInfo()$R.version$os
 
   if (grepl("^darwin", os)) {
-    return(c("/Library/Fonts", "/System/Library/Fonts"))
+    return("/Library/Fonts")
 
   } else if (grepl("^linux-gnu", os)) {
     # Possible font paths, depending on the system
