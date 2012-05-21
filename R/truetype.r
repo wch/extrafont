@@ -30,43 +30,6 @@ ttf_import <- function(paths = NULL, recursive = TRUE) {
 }
 
 
-# Scans ttf files in a vector, and returns a data frame with:
-# - filename: 
-# - fontname:
-# - valid:
-ttf_scan_files <- function(ttfiles) {
-
-  fontdata <- data.frame(filename = ttfiles, fontname = "", 
-                         stringsAsFactors = FALSE)
-
-  ttf2pt1 <- which_ttf2pt1()
-
-  message("Displaying filename: FontName")
-
-  for (i in seq_along(ttfiles)) {
-    message(ttfiles[i], ": ", appendLF = FALSE)
-
-    # This runs:
-    #  ttf2pt1 -Gfae /Library/Fonts/Impact.ttf
-    # The options tell it to not create any output files.
-    # We'll scan the text output to get the FontName
-    ret <- system2(ttf2pt1, c("-Gfae", shQuote(ttfiles[i])),
-                   stdout = TRUE, stderr = TRUE)
-
-    fontnameidx <- grepl("^FontName ", ret)
-    if (sum(fontnameidx) == 1) {
-      fontdata$fontname[i] <- sub("^FontName ", "", ret[fontnameidx])
-    } else if (sum(fontnameidx) > 1) {
-      warning("More than one FontName found for ", ttfiles[i])
-    }
-
-    message(fontdata$fontname[i])
-  }
-
-  return(fontdata)
-}
-
-
 # Finds the executable for ttf2pt1
 which_ttf2pt1 <- function() {
   if (.Platform$OS.type == "unix") {
