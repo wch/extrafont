@@ -13,3 +13,4 @@ Collate:
     'truetype.r'
     'utils.r'
     'font.r'
+    'extrafont.r'
