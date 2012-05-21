@@ -25,7 +25,7 @@ ttf_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
   # This message really belongs in ttf_scan_files, but the pathnames
   # are lost by that point...
   message("Scanning ttf files in ", paste(paths, collapse=", "), " ...")
-  fontmap <- ttf_extract_afm(ttfiles)
+  fontmap <- ttf_extract(ttfiles)
 
   # Drop fonts with no name
   fontmap <- subset(fontmap, !is.na(FontName))
@@ -62,15 +62,15 @@ which_ttf2pt1 <- function() {
 }
 
 
-#' Extract afm files from TrueType fonts.
-ttf_extract_afm <- function(ttfiles) {
-  message("Extracting afm files from ttf files...")
+#' Extract .afm and .enc files from TrueType fonts.
+ttf_extract <- function(ttfiles) {
+  message("Extracting .afm and .enc files from .ttf files...")
 
   # This stores information about the fonts
   fontdata <- data.frame(fontfile = ttfiles, FontName = "", 
                          stringsAsFactors = FALSE)
 
-  outfiles <- file.path(afm_path(), sub("\\.ttf$", ".afm", basename(ttfiles)))
+  outfiles <- file.path(afm_path(), sub("\\.ttf$", "", basename(ttfiles)))
 
   ttf2pt1 <- which_ttf2pt1()
 
@@ -81,8 +81,7 @@ ttf_extract_afm <- function(ttfiles) {
     #  ttf2pt1 -GfAe /Library/Fonts/Impact.ttf /out/path/Impact
     # The -GfAe options tell it to only create the .afm file, and not the
     # .t1a/pfa/pfb or .enc files. Run 'ttf2pt1 -G?' for more info.
-    ret <- system2(ttf2pt1, c("-GfAe", shQuote(ttfiles[i]), 
-              shQuote(sub("\\.afm$", "", outfiles[i]))),
+    ret <- system2(ttf2pt1, c("-GfAE", shQuote(ttfiles[i]), shQuote(outfiles[i])),
             stdout = TRUE, stderr = TRUE)
 
     fontnameidx <- grepl("^FontName ", ret)
@@ -98,8 +97,9 @@ ttf_extract_afm <- function(ttfiles) {
       fontdata$FontName[i] <- NA
       message(" : No FontName. Skipping.")
 
-      # Delete the .afm file that was created
-      unlink(outfiles[i])
+      # Delete the .afm and .enc files that were created
+      unlink(sub("$", ".afm", outfiles[i]))
+      unlink(sub("$", ".enc", outfiles[i]))
 
     } else {
       fontdata$FontName[i] <- fontname

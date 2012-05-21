@@ -52,11 +52,22 @@ setupPdfFonts <- function() {
     #   file.path(afmpath, c("Arial.afm", "Arial Bold.afm",
     #                        "Arial Italic.afm", "Arial Italic.afm"))))
     message("Registering font with R using pdfFonts(): ", family)
+
+    # Get .enc file for regular version of font (italic/bold versions aren't
+    # used here. Is that how it should be?)
+    encfile <- fd$encfile[!fd$Bold & !fd$Italic & !fd$Oblique]
+    if (is.na(encfile))
+      encfile <- "default"
+    else
+      encfile <- file.path(afm_path(), encfile)
+
     # Since 'family' is a string containing the name of the argument, we
     # need to use do.call
     args <- list()
-    args[[family]] <- Type1Font(family, file.path(afm_path(),
-                        c(regular, bold, italic, bolditalic)))
+    args[[family]] <- Type1Font(family,
+                        metrics = file.path(afm_path(),
+                          c(regular, bold, italic, bolditalic)),
+                        encoding = encfile)
     do.call(pdfFonts, args)
   }
 
