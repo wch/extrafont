@@ -38,6 +38,9 @@ type1_import <- function(pkgdir) {
   # Merge fontdata with afmdata
   fontdata <- merge(fontdata, afmdata)
 
+  # Sort
+  fontdata <- fontdata[ order(fontdata$FamilyName, fontdata$FullName), ]
+
   # TODO: The rest should be moved out to fonts.r
   # Combine with existing font data
   fontdata <- rbind(font_load_table(), fontdata)
