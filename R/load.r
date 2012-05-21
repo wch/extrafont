@@ -37,6 +37,16 @@ setupPdfFonts <- function() {
     if (length(italic)     == 0) italic     <- regular
     if (length(bolditalic) == 0) bolditalic <- bold
 
+
+    # If there's an afmsymfile entry, use that as the symbol font
+    # Also check that all in this family have the same afmsymfile entry
+    if (!is.na(fd$afmsymfile[1]) && fd$afmsymfile[1] != ""  &&
+        all(fd$afmsymfile[1] == fd$afmsymfile)) {
+      symbol <- fd$afmsymfile[1]
+    } else {
+      symbol <- NULL
+    }
+
     # Now we can register the font with R, with something like this:
     # pdfFonts("Arial" = Type1Font("Arial",
     #   file.path(afmpath, c("Arial.afm", "Arial Bold.afm",
@@ -48,7 +58,7 @@ setupPdfFonts <- function() {
     args <- list()
     args[[family]] <- Type1Font(family,
                         metrics = file.path(metrics_path(),
-                          c(regular, bold, italic, bolditalic)))
+                          c(regular, bold, italic, bolditalic, symbol)))
     do.call(pdfFonts, args)
   }
 

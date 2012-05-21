@@ -38,6 +38,17 @@ type1_import <- function(pkgdir) {
   # Merge fontdata with afmdata
   fontdata <- merge(fontdata, afmdata)
 
+
+  # If there's one row with Symbol==TRUE, it should be used as the
+  # afmsymfile entry for all others
+  nsymbol <- sum(fontdata$Symbol)
+  if (nsymbol > 1) {
+    stop("More than one symbol font file. Not sure how to handle this.")
+  } else if (nsymbol == 1) {
+    fontdata$afmsymfile <- fontdata[fontdata$Symbol, "afmfile"]
+  }
+
+
   # Sort
   fontdata <- fontdata[ order(fontdata$FamilyName, fontdata$FullName), ]
 

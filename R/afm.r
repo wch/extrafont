@@ -1,7 +1,6 @@
 
 # Reads all the .afm files and builds a table of information about them. 
-# @param drop if TRUE, drop entries that get NA for italic/bold
-afm_scan_files <- function(path = NULL, drop = TRUE) {
+afm_scan_files <- function(path = NULL) {
   if (is.null(path))  path <- metrics_path()
 
   message("Scanning afm files in ", path)
@@ -10,10 +9,6 @@ afm_scan_files <- function(path = NULL, drop = TRUE) {
   # Build a table of information of all the afm files
   afmdata <- lapply(afmfiles, afm_get_info)
   afmdata <- do.call(rbind, afmdata)
-
-  if (drop) {
-    afmdata <- subset(afmdata, !is.na(Bold) & !is.na(Italic))
-  }
 
   afmdata
 }
@@ -52,15 +47,11 @@ afm_get_info <- function(filename) {
     Italic <- FALSE
   }
 
-  # Special cases: These aren't valid (they come with the CM font pack)
-  # Some Small Caps, some Old Style Figures
-  if (grepl("-RegularSC", FontName)  ||
-      grepl("-BoldSC", FontName) ||
-      grepl("-ItalicOsF", FontName) ||
-      grepl("-BoldItalicOsF", FontName)) {
-    Bold <- Italic <- NA
-  }
+  if (grepl("Symbol", FamilyName))
+    Symbol <- TRUE
+  else
+    Symbol <- FALSE
 
   data.frame(FamilyName, FontName, FullName, afmfile = basename(filename),
-             Bold, Italic, stringsAsFactors = FALSE)
+             Bold, Italic, Symbol, afmsymfile = NA, stringsAsFactors = FALSE)
 }

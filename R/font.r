@@ -25,6 +25,7 @@ font_addpackage <- function(pkg = NULL) {
 }
 
 
+# TODO: move fontmap stuff out and modularize
 # Merges information from fontmap and afm data, and saves it to font table
 font_save_table <- function(fontmap = NULL) {
   if(is.null(fontmap))
