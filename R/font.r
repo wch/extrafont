@@ -1,7 +1,15 @@
-# TODO:
-# - add detection of postscript vs truetype. They must be handled
-#   differently. For PS, .afm and .pfb files match by name. For TT,
-#   the afm file is extracted from the .ttf
+#' Import system fonts
+#'
+#' Presently only supports TrueType fonts.
+#'
+#' @export
+font_import <- function() {
+  ttf_import()
+}
+
+#' Import font from an installed package
+#'
+#' @param pkg The name of the font package, e.g., \code{"fontcm"}.
 #' @export
 font_addpackage <- function(pkg = NULL) {
   if(is.null(pkg)) stop("No package specified.")
@@ -48,6 +56,8 @@ fonts <- function() {
   unique(font_load_table()$FamilyName)
 }
 
+#' Returns the full font table
+#'
 #' @export
 font_load_table <- function() {
   if (!file.exists(font_table_file()))

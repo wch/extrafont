@@ -42,17 +42,18 @@ There are three categories of things you need to do to use TrueType fonts:
 
 ## One-time setup
 
-First, import the TrueType fonts installed on the system.
+First, import the fonts installed on the system.
+(This only works with TrueType fonts right now.)
 
 ```R
-ttf_import()
+font_import()
 # This tries to autodetect the directory containing the TrueType fonts.
 # If it fails on your system, please let me know.
 ```
 
 This does the following:
 
-* Finds the TrueType fonts on your system.
+* Finds the fonts on your system.
 * Extracts the FontName (like ArialNarrow-BoldItalic).
 * Extracts/converts a PostScript .afm file for each font. This file contains the *font metrics*, which are the rectangular dimensions of each character that are needed for placement of the characters. These are not the *glyphs*, which the curves defining the visual shape of each character. The glyphs are only in the .ttf file.
 * Scan all the resulting .afm files, and save a table with information about them.
