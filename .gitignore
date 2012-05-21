@@ -1,4 +1,3 @@
 inst/afm/*.afm
-inst/afm/*.enc
 inst/fontmap/Fontmap
 inst/fontmap/font_table.csv

@@ -1,14 +1,35 @@
+# TODO:
+# - add detection of postscript vs truetype. They must be handled
+#   differently. For PS, .afm and .pfb files match by name. For TT,
+#   the afm file is extracted from the .ttf
+#' @export
+font_addpackage <- function(pkg = NULL) {
+  if(is.null(pkg)) stop("No package specified.")
+
+  pkgdir <- system.file(package = pkg)
+
+  if (length(list.files(file.path(pkgdir, "fonts", "metrics"), "*.afm")) > 0) {
+    # It's a type1 (postscript) package
+    type1_import(pkgdir)
+
+  } else if(length(list.files(file.path(pkgdir, "fonts"), "*.ttf")) > 0) {
+    # It's a ttf package
+    # TODO: Implement this
+    stop("ttf font package import not yet implemented.")
+
+  } else {
+    stop("Unknown font package type: not type1 or ttf.")
+  }
+
+}
+
+
 # Merges information from fontmap and afm data, and saves it to font table
 font_save_table <- function(fontmap = NULL) {
   if(is.null(fontmap))
     stop("fontmap must not be NULL")
 
   afmdata <- afm_scan_files()
-
-  # The .enc files should have the same base name as the .afm files
-  afmdata$encfile <- sub("\\.afm$", ".enc", afmdata$afmfile)
-  # Check that each .enc file exists; if not, set to NA
-  afmdata$encfile[!file.exists(file.path(metrics_path(), afmdata$encfile))] <- NA
 
   # Merge the fontfile - FontName mapping, and the info extracted from 
   # the afm files

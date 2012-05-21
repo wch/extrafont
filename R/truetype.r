@@ -62,9 +62,9 @@ which_ttf2pt1 <- function() {
 }
 
 
-#' Extract .afm and .enc files from TrueType fonts.
+#' Extract .afm  files from TrueType fonts.
 ttf_extract <- function(ttfiles) {
-  message("Extracting .afm and .enc files from .ttf files...")
+  message("Extracting .afm files from .ttf files...")
 
   # This stores information about the fonts
   fontdata <- data.frame(fontfile = ttfiles, FontName = "", 
@@ -81,7 +81,7 @@ ttf_extract <- function(ttfiles) {
     #  ttf2pt1 -GfAe /Library/Fonts/Impact.ttf /out/path/Impact
     # The -GfAe options tell it to only create the .afm file, and not the
     # .t1a/pfa/pfb or .enc files. Run 'ttf2pt1 -G?' for more info.
-    ret <- system2(ttf2pt1, c("-GfAE", shQuote(ttfiles[i]), shQuote(outfiles[i])),
+    ret <- system2(ttf2pt1, c("-GfAe", shQuote(ttfiles[i]), shQuote(outfiles[i])),
             stdout = TRUE, stderr = TRUE)
 
     fontnameidx <- grepl("^FontName ", ret)
@@ -97,9 +97,8 @@ ttf_extract <- function(ttfiles) {
       fontdata$FontName[i] <- NA
       message(" : No FontName. Skipping.")
 
-      # Delete the .afm and .enc files that were created
+      # Delete the .afm files that were created
       unlink(sub("$", ".afm", outfiles[i]))
-      unlink(sub("$", ".enc", outfiles[i]))
 
     } else {
       fontdata$FontName[i] <- fontname

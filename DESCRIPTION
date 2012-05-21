@@ -8,9 +8,10 @@ Depends:
     R (>= 2.14)
 License: GPL-2
 Collate:
-    'afm.r'
     'load.r'
     'truetype.r'
     'utils.r'
-    'font.r'
     'extrafont.r'
+    'type1.r'
+    'afm.r'
+    'font.r'
