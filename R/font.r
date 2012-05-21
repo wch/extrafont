@@ -23,7 +23,7 @@ fonts <- function() {
 #' @export
 font_load_table <- function() {
   if (!file.exists(font_table_file()))
-    stop("Can't find ", font_table_file(), ". Have you run import_ttf()?")
+    stop("Can't find ", font_table_file(), ". Have you run ttf_import()?")
 
   read.csv(font_table_file(), stringsAsFactors = FALSE)
 }
