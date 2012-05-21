@@ -5,6 +5,11 @@ font_save_table <- function(fontmap = NULL) {
 
   afmdata <- afm_scan_files()
 
+  # The .enc files should have the same base name as the .afm files
+  afmdata$encfile <- sub("\\.afm$", ".enc", afmdata$afmfile)
+  # Check that each .enc file exists; if not, set to NA
+  afmdata$encfile[!file.exists(file.path(metrics_path(), afmdata$encfile))] <- NA
+
   # Merge the fontfile - FontName mapping, and the info extracted from 
   # the afm files
   fontdata <- merge(fontmap, afmdata)

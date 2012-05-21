@@ -8,11 +8,6 @@ afm_scan_files <- function() {
   afmdata <- lapply(afmfiles, afm_get_info)
   afmdata <- do.call(rbind, afmdata)
 
-  # The .enc files should have the same base name as the .afm files
-  afmdata$encfile <- sub("\\.afm$", ".enc", afmdata$afmfile)
-  # Check that each .enc file exists; if not, set to NA
-  afmdata$encfile[!file.exists(file.path(metrics_path(), afmdata$encfile))] <- NA
-
   afmdata
 }
 
