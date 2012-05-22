@@ -1,7 +1,7 @@
 export(embedExtraFonts)
 export(font_addpackage)
 export(font_import)
-export(font_load_table)
 export(fonts)
+export(fonttable_load)
 export(setupPdfFonts)
 export(ttf_import)
