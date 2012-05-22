@@ -6,16 +6,11 @@
 # - Create Fontmap file (for Ghostscript)
 #' Imports all TrueType fonts in a directory and all subdirectories
 #'
+#' @param paths A vector of directories to search in. (Default is to auto-detect based on OS)
+#' @param recursive Search recursively in directories? (Default TRUE)
+#'
 #' @export
-ttf_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
-
-  if (prompt) {
-    resp <- readline("Importing fonts may take a few minutes, depending on the number of fonts and the speed of the system. Continue? [y/n] ")
-    if (tolower(resp) != "y") {
-      message("Exiting.")
-      return(invisible())
-    }
-  }
+ttf_import <- function(paths = NULL, recursive = TRUE) {
 
   if (is.null(paths))  paths <- ttf_find_default_path()
 
@@ -69,7 +64,7 @@ which_ttf2pt1 <- function() {
 }
 
 
-#' Extract .afm  files from TrueType fonts.
+# Extract .afm  files from TrueType fonts.
 ttf_extract <- function(ttfiles) {
   message("Extracting .afm files from .ttf files...")
 

@@ -2,9 +2,21 @@
 #'
 #' Presently only supports TrueType fonts.
 #'
+#' @param paths A vector of directories to search in. (Default is to auto-detect based on OS)
+#' @param recursive Search recursively in directories? (Default TRUE)
+#' @param prompt Show confirmation prompt? (Default TRUE)
 #' @export
 font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
-  ttf_import(paths, recursive, prompt)
+
+  if (prompt) {
+    resp <- readline("Importing fonts may take a few minutes, depending on the number of fonts and the speed of the system. Continue? [y/n] ")
+    if (tolower(resp) != "y") {
+      message("Exiting.")
+      return(invisible())
+    }
+  }
+
+  ttf_import(paths, recursive)
 }
 
 

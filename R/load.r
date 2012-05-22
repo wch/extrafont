@@ -67,8 +67,15 @@ setupPdfFonts <- function() {
 
 #' Embeds fonts that are listed in the local Fontmap
 #'
+#' @param file Name of input file.
+#' @param outfile Name of the output file (with fonts embedded). (Default is same as input file)
+#' @param format File format. (see \code{?embedFonts})
+#' @param options Other arguments passed to \code{embedFonts}.
+#'
 #' @export
 embedExtraFonts <- function(file, format, outfile = file, options = "") {
-  embedFonts(file = file, format = format, outfile = outfile,
-             options = paste("-I", shQuote(fixpath_os(fontmap_path())), sep = ""))
+  embedFonts(file = file, outfile = outfile,
+    options = paste(
+      paste("-I", shQuote(fixpath_os(fontmap_path())), sep = ""),
+      options))
 }
