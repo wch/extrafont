@@ -24,11 +24,18 @@ fonttable_load <- function() {
 fonttable_add <- function(fontdata = NULL, append = TRUE) {
   if(is.null(data)) return(invisible())
 
+  cols <- c("package", "afmfile", "fontfile", "FullName", "FamilyName",
+            "FontName", "Bold", "Italic", "Symbol", "afmsymfile")
+
+  if (!all(sort(cols) == sort(names(fontdata)))) {
+    stop("Column names do not match. Expected: ", paste(cols, collapse=" "),
+         ".\nActual: ", paste(names(fontdata), collapse=" "))
+  }
+
   ft <- rbind(fonttable_load(), fontdata)
 
   # Arrange the columns
-  ft<- ft[, c("afmfile", "fontfile", "FullName", "FamilyName",
-              "FontName", "Bold", "Italic", "Symbol", "afmsymfile")]
+  ft<- ft[, cols]
 
   message("Writing font table in ", fonttable_file())
   write.csv(ft, file = fonttable_file(), row.names = FALSE)

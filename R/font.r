@@ -19,7 +19,7 @@ font_addpackage <- function(pkg = NULL) {
 
   if (length(list.files(file.path(pkgdir, "fonts", "metrics"), "*.afm")) > 0) {
     # It's a type1 (postscript) package
-    type1_import(pkgdir)
+    type1_import(pkgdir, pkgname = pkg)
 
   } else if(length(list.files(file.path(pkgdir, "fonts"), "*.ttf")) > 0) {
     # It's a ttf package

@@ -38,6 +38,9 @@ ttf_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
   # the afm files
   fontdata <- merge(fontmap, afmdata)
 
+  # These fonts were not installed with a package
+  fontdata$package <- NA
+
   fonttable_add(fontdata)
 }
 

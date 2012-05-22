@@ -1,5 +1,5 @@
 # Import a type1 package
-type1_import <- function(pkgdir) {
+type1_import <- function(pkgdir, pkgname = "") {
   message("Importing type1 font from ", pkgdir)
 
   # Directory structure:
@@ -55,6 +55,8 @@ type1_import <- function(pkgdir) {
   # TODO: The rest should be moved out to fonts.r
   # Combine with existing font data
   fontdata <- rbind(fonttable_load(), fontdata)
+
+  fontdata$package <- pkgname
 
   fonttable_add(fontdata)
 }
