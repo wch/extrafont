@@ -1,6 +1,7 @@
 # Functions related to the font table
 
-#' Show the fonts that are in the font table (and available for embedding)
+#' Show the fonts that are registered in the font table
+#' (and available for embedding)
 #'
 #' @export
 fonts <- function() {
