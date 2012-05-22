@@ -65,6 +65,7 @@ which_ttf2pt1 <- function() {
 
 
 # Extract .afm  files from TrueType fonts.
+# Returns mapping between .ttf file name and FontName
 ttf_extract <- function(ttfiles) {
   message("Extracting .afm files from .ttf files...")
 
@@ -73,6 +74,9 @@ ttf_extract <- function(ttfiles) {
                          stringsAsFactors = FALSE)
 
   outfiles <- file.path(metrics_path(), sub("\\.ttf$", "", basename(ttfiles)))
+
+  dir.create(file.path(tempdir(), "extrafont"))
+  tmpfiles <- file.path(tempdir(), "extrafont", sub("\\.ttf$", "", basename(ttfiles)))
 
   ttf2pt1 <- which_ttf2pt1()
 
@@ -83,7 +87,7 @@ ttf_extract <- function(ttfiles) {
     #  ttf2pt1 -GfAe /Library/Fonts/Impact.ttf /out/path/Impact
     # The -GfAe options tell it to only create the .afm file, and not the
     # .t1a/pfa/pfb or .enc files. Run 'ttf2pt1 -G?' for more info.
-    ret <- system2(ttf2pt1, c("-GfAe", shQuote(ttfiles[i]), shQuote(outfiles[i])),
+    ret <- system2(ttf2pt1, c("-GfAe", shQuote(ttfiles[i]), shQuote(tmpfiles[i])),
             stdout = TRUE, stderr = TRUE)
 
     fontnameidx <- grepl("^FontName ", ret)
@@ -99,18 +103,15 @@ ttf_extract <- function(ttfiles) {
       fontdata$FontName[i] <- NA
       message(" : No FontName. Skipping.")
 
-      # Delete the .afm files that were created
-      unlink(sub("$", ".afm", outfiles[i]))
-
     } else {
       fontdata$FontName[i] <- fontname
+      file.copy(paste(tmpfiles[i], ".afm", sep=""),
+        paste(outfiles[i], ".afm", sep=""))
       message(" => ", paste(outfiles[i], sep=""))
     }
-
   }
 
   return(fontdata)
-
 }
 
 # Previously, this also allowed using ttf2afm to do the afm extraction,
