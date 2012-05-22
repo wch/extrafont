@@ -12,10 +12,10 @@ fonts <- function() {
 #'
 #' @export
 fonttable_load <- function() {
-  if (!file.exists(font_table_file()))
+  if (!file.exists(fonttable_file()))
     return(data.frame())
 
-  read.csv(font_table_file(), stringsAsFactors = FALSE)
+  read.csv(fonttable_file(), stringsAsFactors = FALSE)
 }
 
 
@@ -31,8 +31,8 @@ font_save_table <- function(fontmap = NULL) {
   # the afm files
   fontdata <- merge(fontmap, afmdata)
 
-  message("Saving font table in ", font_table_file())
-  write.csv(fontdata, file = font_table_file(), row.names = FALSE)
+  message("Saving font table in ", fonttable_file())
+  write.csv(fontdata, file = fonttable_file(), row.names = FALSE)
 }
 
 
@@ -46,8 +46,8 @@ fonttable_add <- function(fontdata = NULL, append = TRUE) {
   ft<- ft[, c("afmfile", "fontfile", "FullName", "FamilyName",
               "FontName", "Bold", "Italic", "Symbol", "afmsymfile")]
 
-  message("Saving font table in ", font_table_file())
-  write.csv(ft, file = font_table_file(), row.names = FALSE)
+  message("Saving font table in ", fonttable_file())
+  write.csv(ft, file = fonttable_file(), row.names = FALSE)
 }
 
 

@@ -57,6 +57,6 @@ type1_import <- function(pkgdir) {
   fontdata <- rbind(fonttable_load(), fontdata)
 
   # TODO: Allow this to work even if no existing table
-  message("Adding to font table in ", font_table_file())
-  write.csv(fontdata, file = font_table_file(), row.names = FALSE)
+  message("Adding to font table in ", fonttable_file())
+  write.csv(fontdata, file = fonttable_file(), row.names = FALSE)
 }

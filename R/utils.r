@@ -18,8 +18,8 @@ metrics_path <- function() {
   file.path(inst_path(), "metrics")
 }
 
-font_table_file <- function() {
-  file.path(fontmap_path(), "font_table.csv")
+fonttable_file <- function() {
+  file.path(fontmap_path(), "fonttable.csv")
 }
 
 
