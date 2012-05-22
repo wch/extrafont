@@ -6,7 +6,15 @@
 setupPdfFonts <- function() {
   fontdata <- fonttable()
 
+  # Get names of fonts that are already registered
+  cfonts <- names(pdfFonts())
+
   for (family in unique(fontdata$FamilyName)) {
+    if (family %in% cfonts) {
+      message(family, " already registered with R.")
+      next()
+    }
+
     # All entries for this family
     fd <- fontdata[fontdata$FamilyName == family, ]
 
