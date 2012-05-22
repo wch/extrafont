@@ -4,14 +4,14 @@
 #'
 #' @export
 fonts <- function() {
-  unique(font_load_table()$FamilyName)
+  unique(fonttable_load()$FamilyName)
 }
 
 
 #' Returns the full font table
 #'
 #' @export
-font_load_table <- function() {
+fonttable_load <- function() {
   if (!file.exists(font_table_file()))
     return(data.frame())
 
@@ -40,7 +40,7 @@ font_save_table <- function(fontmap = NULL) {
 fonttable_add <- function(fontdata = NULL, append = TRUE) {
   if(is.null(data)) return(invisible())
 
-  ft <- rbind(font_load_table(), fontdata)
+  ft <- rbind(fonttable_load(), fontdata)
 
   # Arrange the columns
   ft<- ft[, c("afmfile", "fontfile", "FullName", "FamilyName",
@@ -54,7 +54,7 @@ fonttable_add <- function(fontdata = NULL, append = TRUE) {
 # Writes the Fontmap file for use by Ghostscript when embedding fonts
 # Loads the data from the font table
 generate_fontmap_file <- function() {
-  fontdata <- font_load_table()
+  fontdata <- fonttable_load()
   outfile <- fontmap_file()
 
   message("Writing Fontmap to ", outfile, "...")

@@ -54,7 +54,7 @@ type1_import <- function(pkgdir) {
 
   # TODO: The rest should be moved out to fonts.r
   # Combine with existing font data
-  fontdata <- rbind(font_load_table(), fontdata)
+  fontdata <- rbind(fonttable_load(), fontdata)
 
   # TODO: Allow this to work even if no existing table
   message("Adding to font table in ", font_table_file())
