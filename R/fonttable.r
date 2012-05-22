@@ -19,23 +19,7 @@ fonttable_load <- function() {
 }
 
 
-# TODO: move fontmap stuff out and modularize
-# Merges information from fontmap and afm data, and saves it to font table
-font_save_table <- function(fontmap = NULL) {
-  if(is.null(fontmap))
-    stop("fontmap must not be NULL")
-
-  afmdata <- afm_scan_files()
-
-  # Merge the fontfile - FontName mapping, and the info extracted from 
-  # the afm files
-  fontdata <- merge(fontmap, afmdata)
-
-  message("Saving font table in ", fonttable_file())
-  write.csv(fontdata, file = fonttable_file(), row.names = FALSE)
-}
-
-
+# Add to the font table.
 # When append is TRUE, add to the table. When FALSE, overwrite table.
 fonttable_add <- function(fontdata = NULL, append = TRUE) {
   if(is.null(data)) return(invisible())
@@ -46,8 +30,11 @@ fonttable_add <- function(fontdata = NULL, append = TRUE) {
   ft<- ft[, c("afmfile", "fontfile", "FullName", "FamilyName",
               "FontName", "Bold", "Italic", "Symbol", "afmsymfile")]
 
-  message("Saving font table in ", fonttable_file())
+  message("Writing font table in ", fonttable_file())
   write.csv(ft, file = fonttable_file(), row.names = FALSE)
+
+  # Update the Fontmap file
+  generate_fontmap_file()
 }
 
 

@@ -30,7 +30,6 @@ font_addpackage <- function(pkg = NULL) {
     stop("Unknown font package type: not type1 or ttf.")
   }
 
-  generate_fontmap_file()
 }
 
 

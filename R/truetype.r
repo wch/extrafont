@@ -31,10 +31,14 @@ ttf_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
   fontmap <- fontmap[!is.na(fontmap$FontName), ]
   message("Found FontName for ", nrow(fontmap), " fonts.")
 
-  font_save_table(fontmap)
+  # Merge fontmap with afm data
+  afmdata <- afm_scan_files()
 
-  # This generates the Fontmap file, which is used by Ghostscript.
-  generate_fontmap_file()
+  # Merge the fontfile-FontName mapping, and the info extracted from
+  # the afm files
+  fontdata <- merge(fontmap, afmdata)
+
+  fonttable_add(fontdata)
 }
 
 
