@@ -23,7 +23,8 @@ fonttable <- function() {
 # Add to the font table.
 # When append is TRUE, add to the table. When FALSE, overwrite table.
 fonttable_add <- function(fontdata = NULL, append = TRUE) {
-  if(is.null(data)) return(invisible())
+  if(is.null(fontdata) || nrow(fontdata) == 0)
+    return(invisible())
 
   cols <- c("package", "afmfile", "fontfile", "FullName", "FamilyName",
             "FontName", "Bold", "Italic", "Symbol", "afmsymfile")

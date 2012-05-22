@@ -2,7 +2,7 @@
 # This does the following:
 # - Create afm files in extrafont/inst/afm (or extrafont/afm when extrafont
 #   is properly installed as a package)
-# - Create font_table.csv
+# - Create fonttable.csv
 # - Create Fontmap file (for Ghostscript)
 #' Imports all TrueType fonts in a directory and all subdirectories
 #'
@@ -33,10 +33,12 @@ ttf_import <- function(paths = NULL, recursive = TRUE) {
   # the afm files
   fontdata <- merge(fontmap, afmdata)
 
-  # These fonts were not installed with a package
-  fontdata$package <- NA
+  if (nrow(fontdata) > 0) {
+    # Mark that these fonts were not installed with a package
+    fontdata$package <- NA
 
-  fonttable_add(fontdata)
+    fonttable_add(fontdata)
+  }
 }
 
 
@@ -102,6 +104,10 @@ ttf_extract <- function(ttfiles) {
     if (fontname == "" || fontname == "Unknown") {
       fontdata$FontName[i] <- NA
       message(" : No FontName. Skipping.")
+
+    } else if (fontname %in% fonttable()$FontName) {
+      fontdata$FontName[i] <- NA
+      message(fontname, " already registered with extrafont. Skipping.")
 
     } else {
       fontdata$FontName[i] <- fontname
