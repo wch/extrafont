@@ -63,7 +63,8 @@ font_addpackage <- function(pkg = NULL) {
 
   # Check if font package already added
   ft <- fonttable()
-  if (any(ft$package == pkg)) {
+  # need the isTRUE in case ft$package is all NA
+  if (isTRUE(any(ft$package == pkg))) {
     message('Font package "', pkg, '" already registered with extrafont.')
     return(invisible())
   }

@@ -52,10 +52,6 @@ type1_import <- function(pkgdir, pkgname = "") {
   # Sort
   fontdata <- fontdata[ order(fontdata$FamilyName, fontdata$FullName), ]
 
-  # TODO: The rest should be moved out to fonts.r
-  # Combine with existing font data
-  fontdata <- rbind(fonttable(), fontdata)
-
   fontdata$package <- pkgname
 
   fonttable_add(fontdata)
