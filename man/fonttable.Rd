@@ -1,8 +1,8 @@
-\name{fonttable_load}
-\alias{fonttable_load}
+\name{fonttable}
+\alias{fonttable}
 \title{Returns the full font table}
 \usage{
-  fonttable_load()
+  fonttable()
 }
 \description{
   Returns the full font table

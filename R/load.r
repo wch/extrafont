@@ -4,7 +4,7 @@
 #'
 #' @export
 setupPdfFonts <- function() {
-  fontdata <- fonttable_load()
+  fontdata <- fonttable()
 
   for (family in unique(fontdata$FamilyName)) {
     # All entries for this family

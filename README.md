@@ -60,7 +60,7 @@ You can view the resulting table of font information with:
 
 ```R
 # Show entire table
-fonttable_load()
+fonttable()
 
 # Vector of font family names
 fonts()
