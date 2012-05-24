@@ -20,11 +20,11 @@ font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
 }
 
 
-#' Install a font package and register it with extrafont
+#' Install a font package and register it in the fonts database
 #'
 #' If the font package specified by \code{fontpkg} is not already installed,
 #' it will be downloaded from CRAN. The font package will then be registered
-#' with extrafont.
+#' in the fonts database.
 #'
 #' @param fontpkg The name of an R package containing a font.
 #'
@@ -46,15 +46,15 @@ font_install <- function(fontpkg = NULL) {
   }
 
 
-  # Check if font needs to be registered with extrafont
+  # Check if font needs to be registered with fonts db
   # (and do it if needed.)
-  message('Registering font package "', fontpkg, '" with extrafont.')
+  message('Registering font package "', fontpkg, '" with fonts.')
   font_addpackage(fontpkg)
 
 }
 
 
-#' Add font from an installed package to extrafont's registry
+#' Add font from an installed package to fonts database
 #'
 #' @param pkg The name of the font package, e.g., \code{"fontcm"}.
 #' @export
@@ -65,7 +65,7 @@ font_addpackage <- function(pkg = NULL) {
   ft <- fonttable()
   # need the isTRUE in case ft$package is all NA
   if (isTRUE(any(ft$package == pkg))) {
-    message('Font package "', pkg, '" already registered with extrafont.')
+    message('Font package "', pkg, '" already registered in fonts database.')
     return(invisible())
   }
 

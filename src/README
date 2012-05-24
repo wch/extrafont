@@ -1,4 +1,5 @@
-This directory contains sources for utility programs used by extrafont.
+This directory contains sources for utility programs used by the fonts
+package.
 
 ## ttf2pt1
 

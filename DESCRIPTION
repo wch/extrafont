@@ -1,4 +1,4 @@
-Package: extrafont
+Package: fonts
 Title: Tools for using other fonts
 Version: 0.0.3
 Author: Winston Chang <winston@stdout.org>
@@ -11,7 +11,7 @@ Collate:
     'load.r'
     'truetype.r'
     'utils.r'
-    'extrafont.r'
+    'fonts.r'
     'type1.r'
     'afm.r'
     'font.r'

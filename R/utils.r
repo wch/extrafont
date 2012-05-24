@@ -2,11 +2,11 @@
 inst_path <- function() {
   envname <- environmentName(environment(inst_path))
 
-  # If installed in package, envname == "extrafont"
-  # If loaded with load_all, envname == "package:extrafont"
+  # If installed in package, envname == "fonts"
+  # If loaded with load_all, envname == "package:fonts"
   # (This is kind of strange)
-  if (envname == "extrafont") {
-    system.file(package = "extrafont")
+  if (envname == "fonts") {
+    system.file(package = "fonts")
   } else {
     srcfile <- attr(attr(inst_path, "srcref"), "srcfile")
     file.path(dirname(dirname(srcfile$filename)), "inst")

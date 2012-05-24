@@ -1,31 +1,31 @@
-# extrafont
+# fonts
 
-The extrafont package makes it easier to use fonts other than the basic PostScript fonts that R uses, such as system TrueType fonts.
+The fonts package makes it easier to use fonts other than the basic PostScript fonts that R uses, such as system TrueType fonts.
 
 There are two hurdles for using fonts in PDF (or Postscript) output files:
 
 * Making R aware of the font and the dimensions of the characters.
 * Embedding the fonts so that the PDF can be displayed properly on a device that doesn't have the font.
 
-The extrafont package makes both of these things easier.
+The fonts package makes both of these things easier.
 
 Presently it allows the use of system TrueType fonts with R, and installation of Type 1 font packages.
 Support for other kinds of fonts will be added in the future.
 It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04 and Windows XP.
 
 
-# Using extrafont
+# Using fonts
 
 ## Requirements
 
 You must have Ghostscript installed on your system for embedding fonts into PDF files.
 
-You can install the extrafont package directly from GitHub:
+You can install the fonts package directly from GitHub:
 
 ```R
 library(devtools)
-install_github('extrafont', 'wch')
-library(extrafont)
+install_github('fonts', 'wch')
+library(fonts)
 ```
 
 

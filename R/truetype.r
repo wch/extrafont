@@ -1,6 +1,6 @@
 # Load all .ttf fonts from a directory.
 # This does the following:
-# - Create afm files in extrafont/inst/afm (or extrafont/afm when extrafont
+# - Create afm files in fonts/inst/afm (or fonts/afm when fonts
 #   is properly installed as a package)
 # - Create fonttable.csv
 # - Create Fontmap file (for Ghostscript)
@@ -77,8 +77,8 @@ ttf_extract <- function(ttfiles) {
 
   outfiles <- file.path(metrics_path(), sub("\\.ttf$", "", basename(ttfiles)))
 
-  dir.create(file.path(tempdir(), "extrafont"))
-  tmpfiles <- file.path(tempdir(), "extrafont", sub("\\.ttf$", "", basename(ttfiles)))
+  dir.create(file.path(tempdir(), "fonts"))
+  tmpfiles <- file.path(tempdir(), "fonts", sub("\\.ttf$", "", basename(ttfiles)))
 
   ttf2pt1 <- which_ttf2pt1()
 
@@ -107,7 +107,7 @@ ttf_extract <- function(ttfiles) {
 
     } else if (fontname %in% fonttable()$FontName) {
       fontdata$FontName[i] <- NA
-      message(fontname, " already registered with extrafont. Skipping.")
+      message(fontname, " already registered in fonts database. Skipping.")
 
     } else {
       fontdata$FontName[i] <- fontname
