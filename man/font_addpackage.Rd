@@ -1,6 +1,6 @@
 \name{font_addpackage}
 \alias{font_addpackage}
-\title{Add font from an installed package to extrafont's registry}
+\title{Add font from an installed package to fonts database}
 \usage{
   font_addpackage(pkg = NULL)
 }
@@ -9,7 +9,6 @@
   \code{"fontcm"}.}
 }
 \description{
-  Add font from an installed package to extrafont's
-  registry
+  Add font from an installed package to fonts database
 }
 
