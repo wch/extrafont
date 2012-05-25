@@ -13,9 +13,15 @@ inst_path <- function() {
   }
 }
 
+
+# Get the path where fontsdb is installed
+db_path <- function() {
+  system.file(package = "fontsdb")
+}
+
 # Path for the afm files
 metrics_path <- function() {
-  file.path(inst_path(), "metrics")
+  file.path(db_path(), "metrics")
 }
 
 fonttable_file <- function() {
@@ -24,7 +30,7 @@ fonttable_file <- function() {
 
 
 fontmap_path <- function() {
-  file.path(inst_path(), "fontmap")
+  file.path(db_path(), "fontmap")
 }
 
 # Fontmap file

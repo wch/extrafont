@@ -20,14 +20,19 @@ It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04 and Windows XP.
 
 You must have Ghostscript installed on your system for embedding fonts into PDF files.
 
-You can install the fonts package directly from GitHub:
+This package requires the **[fontsdb](https://github.com/wch/fontsdb)** package to be installed.
+fontsdb contains the font database, while this package contains the code to install fonts and register them in the database.
+
+You can install the fontsdb and fonts package directly from GitHub:
 
 ```R
 library(devtools)
+install_github('fontsdb', 'wch')
 install_github('fonts', 'wch')
 library(fonts)
-```
 
+# In the future, installing 'fonts' from CRAN will automatically install fontsdb
+```
 
 There are three categories of things you need to do to use fonts:
 
