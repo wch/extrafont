@@ -6,12 +6,15 @@
 }
 \arguments{
   \item{fontpkg}{The name of an R package containing a
-  font.}
+  font, e.g., \code{"fontcm"}.}
 }
 \description{
   If the font package specified by \code{fontpkg} is not
   already installed, it will be downloaded from CRAN. The
   font package will then be registered in the fonts
   database.
+}
+\examples{
+font_install('fontcm')
 }
 

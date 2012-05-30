@@ -1,9 +1,8 @@
-\name{embedExtraFonts}
-\alias{embedExtraFonts}
+\name{embed_fonts}
+\alias{embed_fonts}
 \title{Embeds fonts that are listed in the local Fontmap}
 \usage{
-  embedExtraFonts(file, format, outfile = file,
-    options = "")
+  embed_fonts(file, format, outfile = file, options = "")
 }
 \arguments{
   \item{file}{Name of input file.}

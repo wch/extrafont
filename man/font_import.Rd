@@ -17,4 +17,7 @@
 \description{
   Presently only supports TrueType fonts.
 }
+\examples{
+font_import()
+}
 
