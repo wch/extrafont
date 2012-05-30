@@ -95,7 +95,7 @@ loadfonts <- function(device = "pdf") {
 #' @param options Other arguments passed to \code{embedFonts}.
 #'
 #' @export
-embedExtraFonts <- function(file, format, outfile = file, options = "") {
+embed_fonts <- function(file, format, outfile = file, options = "") {
   embedFonts(file = file, format = format, outfile = outfile,
     options = paste(
       paste("-I", shQuote(fixpath_os(fontmap_path())), sep = ""),
