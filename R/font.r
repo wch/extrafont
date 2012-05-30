@@ -5,6 +5,10 @@
 #' @param paths A vector of directories to search in. (Default is to auto-detect based on OS)
 #' @param recursive Search recursively in directories? (Default TRUE)
 #' @param prompt Show confirmation prompt? (Default TRUE)
+#'
+#' @examples
+#' font_import()
+#'
 #' @export
 font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
 
@@ -26,7 +30,10 @@ font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
 #' it will be downloaded from CRAN. The font package will then be registered
 #' in the fonts database.
 #'
-#' @param fontpkg The name of an R package containing a font.
+#' @param fontpkg The name of an R package containing a font, e.g., \code{"fontcm"}.
+#'
+#' @examples
+#' font_install('fontcm')
 #'
 #' @export
 font_install <- function(fontpkg = NULL) {
@@ -56,7 +63,11 @@ font_install <- function(fontpkg = NULL) {
 
 #' Add font from an installed package to fonts database
 #'
+#' This is usually not called directly, but via \code{\link{font_install}}.
+#'
 #' @param pkg The name of the font package, e.g., \code{"fontcm"}.
+#' @seealso \code{\link{font_install}}
+#'
 #' @export
 font_addpackage <- function(pkg = NULL) {
   if(is.null(pkg)) stop("No package specified.")

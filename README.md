@@ -1,6 +1,7 @@
 # fonts
 
 The fonts package makes it easier to use fonts other than the basic PostScript fonts that R uses, such as system TrueType fonts.
+Fonts installed through this package can be used with PDF or PostScript output files, but they won't necessarily be available for screen or bitmap output.
 
 There are two hurdles for using fonts in PDF (or Postscript) output files:
 
@@ -78,7 +79,7 @@ If you install new fonts on your computer, you'll have to redo this stage to re-
 This registers each of the fonts in the afm table with R. This is needed for R to know about the new fonts (but it forgets about them after each session).
 
 ```R
-setupPdfFonts()
+loadfonts()
 ```
 
 If you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows installation notes below.)
@@ -95,7 +96,7 @@ Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 After you create a PDF output file, you should *embed* the fonts into the file.
 The 14 PostScript *base fonts* never need to be embedded, because they are included with every PostScript/PDF renderer.
 However, the extra fonts aren't necessarily available on other devices, so they should be embedded.
-The `embedExtraFonts()` function will do this.
+The `embed_fonts()` function will do this.
 
 Here's an example of a PDF plot made with ggplot2. (Run only the plots that use fonts available on your system.)
 
@@ -120,7 +121,7 @@ After creating the PDF file, embed the fonts:
 
 ```R
 # This does the embedding
-embedExtraFonts('fonttest.pdf', outfile='fonttest-embed.pdf')
+embed_fonts('fonttest.pdf', outfile='fonttest-embed.pdf')
 ```
 
 To check if the fonts have been properly embedded, open each of the PDF files with Adobe Reader, and go to File->Properties->Fonts.
@@ -131,6 +132,11 @@ Open the file and go to File->Properties->Fonts.
 If a font is embedded, it will say "Embedded subset"; otherwise it will say "Not embedded".
 
 
+# Font packages
+
+Packages containing fonts can also be used.
+See the [fontcm](https://github.com/wch/fontcm) package containing Computer Modern fonts for an example.
+
 *****
 
 # Installation notes
@@ -138,7 +144,7 @@ If a font is embedded, it will say "Embedded subset"; otherwise it will say "Not
 ## ttf2pt1
 
 The source code for the utility program `ttf2pt1` is included.
-It will be compiled on installation, so you need a build environment on your system.
+It will be compiled on installation, so you need a build environment on your system (unless you install fonts as a precompiled package from CRAN).
 
 
 ## Windows installation notes
@@ -151,7 +157,7 @@ For example, when Ghostscript 9.05 is installed to the default location, running
 ```R
 Sys.setenv(R_GSCMD="C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 
-# After this is done, you can run embedExtraFonts()
+# After this is done, you can run embed_fonts()
 ```
 
 # Licensing notes
