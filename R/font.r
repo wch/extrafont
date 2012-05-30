@@ -31,12 +31,15 @@ font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
 #' in the fonts database.
 #'
 #' @param fontpkg The name of an R package containing a font, e.g., \code{"fontcm"}.
+#' @param prompt Ask user to install font from CRAN if not already installed
 #'
 #' @examples
+#' \donttest{
 #' font_install('fontcm')
+#' }
 #'
 #' @export
-font_install <- function(fontpkg = NULL) {
+font_install <- function(fontpkg = NULL, prompt = TRUE) {
   if (is.null(fontpkg))
     stop("fontpkg must be specified.")
 
@@ -45,7 +48,17 @@ font_install <- function(fontpkg = NULL) {
     message('Package "', fontpkg, '" already installed.')
   } else {
     # Not installed; try to install from cran
-    message('Package "', fontpkg, '" not installed. Attempting to install from CRAN...')
+    if (prompt) {
+      resp <- readline(paste('Package "', fontpkg, 
+        '" not installed. Would you like to install it from CRAN? [y/n] ',
+        sep = ""))
+      if (tolower(resp) != "y") {
+        message("Exiting.")
+        return(invisible())
+      }
+    }
+
+    message('Attempting to install "', fontpkg, '" from CRAN...')
     install.packages(fontpkg)
 
     if (!is.element(fontpkg, installed.packages()[,1]))
