@@ -6,6 +6,7 @@
 #' @param device The output device. Can be \code{"pdf"} (the default)
 #'  or \code{"postscript"}.
 #'
+#' @seealso \code{\link{embed_fonts}}
 #' @export
 loadfonts <- function(device = "pdf") {
   fontdata <- fonttable()
@@ -94,6 +95,27 @@ loadfonts <- function(device = "pdf") {
 #' @param format File format. (see \code{?embedFonts})
 #' @param options Other arguments passed to \code{embedFonts}.
 #'
+#' @examples
+#'
+#' \donttest{
+#' loadfonts()
+#' pdf('fonttest.pdf')
+#' library(ggplot2)
+#'
+#' p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+#'
+#' # Run only the code below that is appropriate for your system
+#' # On Mac and Windows, Impact should be available
+#' p + opts(axis.title.x=theme_text(size=16, family="Impact", colour="red"))
+#'
+#' # On Linux, Purisa may be available
+#' p + opts(axis.title.x=theme_text(size=16, family="Purisa", colour="red"))
+#' dev.off()
+#'
+#' embed_fonts('fonttest.pdf', outfile='fonttest-embed.pdf')
+#' }
+#'
+#' @seealso \code{\link{loadfonts}}
 #' @export
 embed_fonts <- function(file, format, outfile = file, options = "") {
   embedFonts(file = file, format = format, outfile = outfile,

@@ -105,7 +105,7 @@ pdf('fonttest.pdf', width=4, height=4)
 library(ggplot2)
 p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
 
-# On Mac, Impact is available
+# On Mac and Windows, Impact should be available
 p + opts(axis.title.x=theme_text(size=16, family="Impact", colour="red"))
 
 # On Linux, Purisa and/or Droid Serif may be available

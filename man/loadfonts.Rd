@@ -13,4 +13,7 @@
   pdf or postscript output device. It must be run once in
   each R session.
 }
+\seealso{
+  \code{\link{embed_fonts}}
+}
 

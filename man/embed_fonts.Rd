@@ -18,4 +18,26 @@
 \description{
   Embeds fonts that are listed in the local Fontmap
 }
+\examples{
+\donttest{
+loadfonts()
+pdf('fonttest.pdf')
+library(ggplot2)
+
+p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+
+# Run only the code below that is appropriate for your system
+# On Mac and Windows, Impact should be available
+p + opts(axis.title.x=theme_text(size=16, family="Impact", colour="red"))
+
+# On Linux, Purisa may be available
+p + opts(axis.title.x=theme_text(size=16, family="Purisa", colour="red"))
+dev.off()
+
+embed_fonts('fonttest.pdf', outfile='fonttest-embed.pdf')
+}
+}
+\seealso{
+  \code{\link{loadfonts}}
+}
 
