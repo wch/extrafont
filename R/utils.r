@@ -24,11 +24,12 @@ metrics_path <- function() {
   file.path(db_path(), "metrics")
 }
 
+# fonttable file
 fonttable_file <- function() {
   file.path(fontmap_path(), "fonttable.csv")
 }
 
-
+# Path of fontmap directory
 fontmap_path <- function() {
   file.path(db_path(), "fontmap")
 }
@@ -44,8 +45,7 @@ fontmap_file <- function() {
 # on Windows. But when calling shell commands, they often need '\' instead.
 fixpath_os <- function(path) {
   if (grepl("^mingw", sessionInfo()$R.version$os)) {
-  gsub("/", "\\\\", path)
-
+    gsub("/", "\\\\", path)
   } else {
     path
   }
