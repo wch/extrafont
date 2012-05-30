@@ -1,6 +1,6 @@
 Package: fonts
 Title: Tools for using fonts
-Version: 0.0.4
+Version: 0.9
 Author: Winston Chang <winston@stdout.org>
 Maintainer: Winston Chang <winston@stdout.org>
 Description: Tools to using fonts other than the standard PostScript fonts.
