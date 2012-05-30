@@ -1,14 +1,20 @@
 Package: fonts
-Title: Tools for using other fonts
-Version: 0.0.3
+Title: Tools for using fonts
+Version: 0.0.4
 Author: Winston Chang <winston@stdout.org>
 Maintainer: Winston Chang <winston@stdout.org>
-Description: Tools to using fonts other than the standard PostScript fonts
+Description: Tools to using fonts other than the standard PostScript fonts.
+    This package makes it easy to use system TrueType fonts and with
+    PDF or PostScript output files. It can also be used with fonts packaged
+    specifically to be used with it, such as the fontcm package, which
+    has Computer Modern PostScript fonts with math symbols.
+    See https://github.com/wch/fonts for instructions and examples.
 Depends:
     R (>= 2.14)
 Imports:
     fontsdb
 License: GPL-2
+URL: https://github.com/wch/fonts
 Collate:
     'load.r'
     'truetype.r'
@@ -18,3 +24,5 @@ Collate:
     'afm.r'
     'font.r'
     'fonttable.r'
+Suggests:
+    fontcm
