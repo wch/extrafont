@@ -1,17 +1,31 @@
-#' Reads the saved afm table, then registers those fonts with R.
+#' Reads the fonttable database and registers those fonts with R
 #'
-#' This must be run once in each R session.
+#' This registers fonts so that they can be used with the pdf or
+#' postscript output device. It must be run once in each R session.
+#'
+#' @param device The output device. Can be \code{"pdf"} (the default)
+#'  or \code{"postscript"}.
 #'
 #' @export
-setupPdfFonts <- function() {
+loadfonts <- function(device = "pdf") {
   fontdata <- fonttable()
 
-  # Get names of fonts that are already registered
-  cfonts <- names(pdfFonts())
+  if (device == "pdf") {
+    # Get names of fonts that are already registered
+    cfonts   <- names(pdfFonts())
+    fontfunc <- pdfFonts
+    ffname   <- "pdfFonts"
+  } else if (device == "postscript") {
+    cfonts   <- names(postscriptFonts())
+    fontfunc <- postscriptFonts
+    ffname   <- "postscriptFonts"
+  } else {
+    stop("Unknown device: ", device)
+  }
 
   for (family in unique(fontdata$FamilyName)) {
     if (family %in% cfonts) {
-      message(family, " already registered with R.")
+      message(family, " already registered with ", ffname, "().")
       next()
     }
 
@@ -59,7 +73,7 @@ setupPdfFonts <- function() {
     # pdfFonts("Arial" = Type1Font("Arial",
     #   file.path(afmpath, c("Arial.afm", "Arial Bold.afm",
     #                        "Arial Italic.afm", "Arial Italic.afm"))))
-    message("Registering font with R using pdfFonts(): ", family)
+    message("Registering font with R using ", ffname, "(): ", family)
 
     # Since 'family' is a string containing the name of the argument, we
     # need to use do.call
@@ -67,7 +81,7 @@ setupPdfFonts <- function() {
     args[[family]] <- Type1Font(family,
                         metrics = file.path(metrics_path(),
                           c(regular, bold, italic, bolditalic, symbol)))
-    do.call(pdfFonts, args)
+    do.call(fontfunc, args)
   }
 
 }
@@ -82,7 +96,7 @@ setupPdfFonts <- function() {
 #'
 #' @export
 embedExtraFonts <- function(file, format, outfile = file, options = "") {
-  embedFonts(file = file, outfile = outfile,
+  embedFonts(file = file, format = format, outfile = outfile,
     options = paste(
       paste("-I", shQuote(fixpath_os(fontmap_path())), sep = ""),
       options))
