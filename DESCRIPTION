@@ -24,5 +24,3 @@ Collate:
     'afm.r'
     'font.r'
     'fonttable.r'
-Suggests:
-    fontcm
