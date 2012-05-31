@@ -46,14 +46,15 @@ ttf_import <- function(paths = NULL, recursive = TRUE) {
 which_ttf2pt1 <- function() {
   if (.Platform$OS.type == "unix") {
     bin <- "ttf2pt1"
+    binpath <- file.path(inst_path(), "exec", .Platform$r_arch, bin)
   } else if (.Platform$OS.type == "windows") {
     bin <- "ttf2pt1.exe"
+    binpath <- file.path(inst_path(), "exec", bin)
   } else {
     stop("Unknown platform: ", .Platform$OS.type)
   }
 
   # First check if it was installed with the package
-  binpath <- file.path(inst_path(), "libs", .Platform$r_arch, bin)
   if (file.exists(binpath))
     return(binpath)
 
@@ -81,6 +82,9 @@ ttf_extract <- function(ttfiles) {
   tmpfiles <- file.path(tempdir(), "fonts", sub("\\.ttf$", "", basename(ttfiles)))
 
   ttf2pt1 <- which_ttf2pt1()
+  # Windows passes the args differently
+  if (.Platform$OS.type == "windows")  args <- c("-G", "fAe")
+  else                                 args <- c("-GfAe")
 
   for (i in seq_along(ttfiles)) {
     message(ttfiles[i], appendLF = FALSE)
@@ -89,7 +93,7 @@ ttf_extract <- function(ttfiles) {
     #  ttf2pt1 -GfAe /Library/Fonts/Impact.ttf /out/path/Impact
     # The -GfAe options tell it to only create the .afm file, and not the
     # .t1a/pfa/pfb or .enc files. Run 'ttf2pt1 -G?' for more info.
-    ret <- system2(ttf2pt1, c("-GfAe", shQuote(ttfiles[i]), shQuote(tmpfiles[i])),
+    ret <- system2(ttf2pt1, c(args, shQuote(ttfiles[i]), shQuote(tmpfiles[i])),
             stdout = TRUE, stderr = TRUE)
 
     fontnameidx <- grepl("^FontName ", ret)
