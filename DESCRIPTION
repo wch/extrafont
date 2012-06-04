@@ -40,7 +40,7 @@ Depends:
     R (>= 2.14)
 Imports:
     extrafontdb
-License: GPL-2
+License: file LICENSE
 URL: https://github.com/wch/extrafont
 Collate:
     'load.r'
