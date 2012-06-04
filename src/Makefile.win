@@ -1,5 +1,5 @@
 # Flags for ttf2pt1
-TTF2PT1_FLAGS = CFLAGS_SYS="-O2 -w -DWINDOWS"
+TTF2PT1_FLAGS = CFLAGS_SYS="-DWINDOWS"
 
 # Run make in subdirs
 all:
