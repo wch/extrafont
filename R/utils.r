@@ -2,11 +2,11 @@
 inst_path <- function() {
   envname <- environmentName(environment(inst_path))
 
-  # If installed in package, envname == "fonts"
-  # If loaded with load_all, envname == "package:fonts"
+  # If installed in package, envname == "extrafont"
+  # If loaded with load_all, envname == "package:extrafont"
   # (This is kind of strange)
-  if (envname == "fonts") {
-    system.file(package = "fonts")
+  if (envname == "extrafont") {
+    system.file(package = "extrafont")
   } else {
     srcfile <- attr(attr(inst_path, "srcref"), "srcfile")
     file.path(dirname(dirname(srcfile$filename)), "inst")
@@ -14,9 +14,9 @@ inst_path <- function() {
 }
 
 
-# Get the path where fontsdb is installed
+# Get the path where extrafontdb is installed
 db_path <- function() {
-  system.file(package = "fontsdb")
+  system.file(package = "extrafontdb")
 }
 
 # Path for the afm files

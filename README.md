@@ -1,6 +1,6 @@
-# fonts
+# extrafont
 
-The fonts package makes it easier to use fonts other than the basic PostScript fonts that R uses, such as system TrueType fonts.
+The extrafont package makes it easier to use fonts other than the basic PostScript fonts that R uses, such as system TrueType fonts.
 Fonts installed through this package can be used with PDF or PostScript output files, but they won't necessarily be available for screen or bitmap output.
 
 There are two hurdles for using fonts in PDF (or Postscript) output files:
@@ -8,34 +8,34 @@ There are two hurdles for using fonts in PDF (or Postscript) output files:
 * Making R aware of the font and the dimensions of the characters.
 * Embedding the fonts so that the PDF can be displayed properly on a device that doesn't have the font.
 
-The fonts package makes both of these things easier.
+The extrafont package makes both of these things easier.
 
 Presently it allows the use of system TrueType fonts with R, and installation of Type 1 font packages.
 Support for other kinds of fonts will be added in the future.
 It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04 and Windows XP.
 
 
-# Using fonts
+# Using extrafont
 
 ## Requirements
 
 You must have Ghostscript installed on your system for embedding fonts into PDF files.
 
-This package requires the **[fontsdb](https://github.com/wch/fontsdb)** package to be installed.
-fontsdb contains the font database, while this package contains the code to install fonts and register them in the database.
+This package requires the **[extrafontdb](https://github.com/wch/extrafontdb)** package to be installed.
+extrafontdb contains the font database, while this package contains the code to install fonts and register them in the database.
 
-You can install the fontsdb and fonts package directly from GitHub:
+You can install the extrafontdb and extrafont package directly from GitHub:
 
 ```R
 library(devtools)
-install_github('fontsdb', 'wch')
-install_github('fonts', 'wch')
-library(fonts)
+install_github('extrafontdb', 'wch')
+install_github('extrafont', 'wch')
+library(extrafont)
 
-# In the future, installing 'fonts' from CRAN will automatically install fontsdb
+# In the future, installing 'extrafont' from CRAN will automatically install extrafontdb
 ```
 
-There are three categories of things you need to do to use fonts:
+There are three categories of things you need to do to use extrafont:
 
 * things that need to be run once
 * things that need to be run in each R session

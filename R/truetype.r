@@ -1,6 +1,6 @@
 # Load all .ttf fonts from a directory.
 # This does the following:
-# - Create afm files in fonts/inst/afm (or fonts/afm when fonts
+# - Create afm files in extrafontdb/inst/afm (or extrafontdb/afm when fonts
 #   is properly installed as a package)
 # - Create fonttable.csv
 # - Create Fontmap file (for Ghostscript)
