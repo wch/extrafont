@@ -1,9 +1,9 @@
-All code in /src/ttf2pt1 has the license below in section TTF2PT1.
-All other materials are licensed under GPL-2.
+Most of this package is distributed under the terms of the GPL-2, with
+the exception of the files under /src/ttf2pt1/ directory, and the ttf2pt1
+executable in /inst/exec/.
 
-
-=======================================================================
-TTF2PT1
+All code under the /src/ttf2pt1/ directory, and the ttf2pt1 executable in
+/inst/exec/ is from the ttf2pt1 package, and has the following license:
 =======================================================================
 The following copyright notice applies to all the files provided
 in this distribution unless explicitly noted otherwise
@@ -91,4 +91,4 @@ I. Lee Hetherington <ilh@lcs.mit.edu>
   Permission is hereby granted to use, modify, and distribute this program
   for any purpose provided this copyright notice and the one below remain
   intact.
- 
+=======================================================================
