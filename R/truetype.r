@@ -9,6 +9,7 @@
 #' @param paths A vector of directories to search in. (Default is to auto-detect based on OS)
 #' @param recursive Search recursively in directories? (Default TRUE)
 #'
+#' @importFrom Rttf2pt1 which_ttf2pt1
 #' @export
 ttf_import <- function(paths = NULL, recursive = TRUE) {
 
@@ -39,31 +40,6 @@ ttf_import <- function(paths = NULL, recursive = TRUE) {
 
     fonttable_add(fontdata)
   }
-}
-
-
-# Finds the executable for ttf2pt1
-which_ttf2pt1 <- function() {
-  if (.Platform$OS.type == "unix") {
-    bin <- "ttf2pt1"
-    binpath <- file.path(inst_path(), "exec", .Platform$r_arch, bin)
-  } else if (.Platform$OS.type == "windows") {
-    bin <- "ttf2pt1.exe"
-    binpath <- file.path(inst_path(), "exec", bin)
-  } else {
-    stop("Unknown platform: ", .Platform$OS.type)
-  }
-
-  # First check if it was installed with the package
-  if (file.exists(binpath))
-    return(binpath)
-
-  # If we didn't find it installed with the package, check search path
-  binpath <- Sys.which(bin)
-  if (binpath == "")
-    stop(bin, " not found in path.")
-  else
-    return(binpath)
 }
 
 
@@ -124,7 +100,7 @@ ttf_extract <- function(ttfiles) {
   return(fontdata)
 }
 
-# Previously, this also allowed using ttf2afm to do the afm extraction,
+# Previously, I tried using ttf2afm to do the afm extraction,
 # but the afm files created by ttf2afm didn't work with R.
 # The command for ttf2afm was:
 #   ttf2afm Impact.ttf -o Impact.afm
