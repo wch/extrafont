@@ -2,31 +2,6 @@ Package: extrafont
 Title: Tools for using fonts
 Version: 0.9
 Author: Winston Chang <winston@stdout.org>,
-    Andrew Weeks <ccsaw@bath.ac.uk>,
-    Frank M. Siegert <fms@this.net>,
-    Mark Heath <mheath@netspace.net.au>,
-    Thomas Henlich <thenlich@rcs.urz.tu-dresden.de>,
-    Sergey Babkin <babkin@users.sourceforge.net>,
-    Turgut Uyar <uyar@cs.itu.edu.tr>,
-    Rihardas Hepas <rch@WriteMe.Com>,
-    Szalay Tamas <tomek@elender.hu>,
-    Johan Vromans <jvromans@squirrel.nl>,
-    Petr Titera <P.Titera@sh.cvut.cz>,
-    Lei Wang <lwang@amath8.amt.ac.cn>,
-    Chen Xiangyang <chenxy@sun.ihep.ac.cn>,
-    Zvezdan Petkovic <z.petkovic@computer.org>,
-    Rigel <rigel863@yahoo.com>,
-    Turgut Uyar <uyar@cs.itu.edu.tr>,
-    Rihardas Hepas <rch@WriteMe.Com>,
-    Szalay Tamas <tomek@elender.hu> ,
-    Johan Vromans <jvromans@squirrel.nl>,
-    Petr Titera <P.Titera@sh.cvut.cz>,
-    Frank M. Siegert <frank@this.net>,
-    Lei Wang <lwang@amath8.amt.ac.cn>,
-    Chen Xiangyang <chenxy@sun.ihep.ac.cn>,
-    Zvezdan Petkovic <z.petkovic@computer.org>,
-    Rigel <rigel863@yahoo.com>,
-    I. Lee Hetherington <ilh@lcs.mit.edu>
 Maintainer: Winston Chang <winston@stdout.org>
 Description: Tools to using fonts other than the standard PostScript fonts.
     This package makes it easy to use system TrueType fonts and with
@@ -34,13 +9,12 @@ Description: Tools to using fonts other than the standard PostScript fonts.
     specifically to be used with it, such as the fontcm package, which
     has Computer Modern PostScript fonts with math symbols.
     See https://github.com/wch/extrafont for instructions and examples.
-    This product includes software developed by the TTF2PT1 Project
-    and its contributors.
 Depends:
     R (>= 2.14)
 Imports:
-    extrafontdb
-License: GPL-2 + file LICENSE
+    extrafontdb,
+    Rttf2pt1
+License: GPL-2
 URL: https://github.com/wch/extrafont
 Collate:
     'load.r'
