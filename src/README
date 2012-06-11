@@ -1,6 +1,0 @@
-This directory contains sources for utility programs used by the fonts
-package.
-
-## ttf2pt1
-
-The sources for ttf2pt1 are unchanged from the original version 3.4.4.
