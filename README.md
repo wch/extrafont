@@ -24,16 +24,22 @@ You must have Ghostscript installed on your system for embedding fonts into PDF 
 This package requires the **[extrafontdb](https://github.com/wch/extrafontdb)** package to be installed.
 extrafontdb contains the font database, while this package contains the code to install fonts and register them in the database.
 
-You can install the extrafontdb and extrafont package directly from GitHub:
+It also requires the **[Rttf2pt1](https://github.com/wch/Rttf2pt1)** package to be installed.
+Rttf2pt1 contains the ttf2pt1 program which is used to read and manipulate TrueType fonts.
+It is in a separate pacakge for licensing reasons.
+
+You can install the extrafontdb, Rttf2pt1, and extrafont packages directly from GitHub:
 
 ```R
 library(devtools)
+install_github('Rttf2pt1', 'wch')
 install_github('extrafontdb', 'wch')
 install_github('extrafont', 'wch')
 library(extrafont)
 
-# In the future, installing 'extrafont' from CRAN will automatically install extrafontdb
+# In the future, installing extrafont from CRAN will automatically install extrafontdb and Rttf2pt1
 ```
+
 
 There are three categories of things you need to do to use extrafont:
 
@@ -141,10 +147,10 @@ See the [fontcm](https://github.com/wch/fontcm) package containing Computer Mode
 
 # Installation notes
 
-## ttf2pt1
+## Rttf2pt1
 
-The source code for the utility program `ttf2pt1` is included.
-It will be compiled on installation, so you need a build environment on your system (unless you install fonts as a precompiled package from CRAN).
+The source code for the utility program `ttf2pt1` is in the package Rttf2pt1.
+It will be compiled on installation, so you need a build environment on your system (unless you install Rttf2pt1 as a precompiled package from CRAN).
 
 
 ## Windows installation notes
@@ -159,8 +165,3 @@ Sys.setenv(R_GSCMD="C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 
 # After this is done, you can run embed_fonts()
 ```
-
-# Licensing notes
-
-This product includes software developed by the TTF2PT1 Project and its contributors.
-See `src/ttf2pt1/COPYRIGHT` for more information.
