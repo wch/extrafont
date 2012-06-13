@@ -28,16 +28,11 @@ It also requires the **[Rttf2pt1](https://github.com/wch/Rttf2pt1)** package to 
 Rttf2pt1 contains the ttf2pt1 program which is used to read and manipulate TrueType fonts.
 It is in a separate pacakge for licensing reasons.
 
-You can install the extrafontdb, Rttf2pt1, and extrafont packages directly from GitHub:
+Install extrafont from CRAN will automatically install extrafontdb and Rttf2pt1:
 
 ```R
-library(devtools)
-install_github('Rttf2pt1', 'wch')
-install_github('extrafontdb', 'wch')
-install_github('extrafont', 'wch')
+install.packages('extrafont')
 library(extrafont)
-
-# In the future, installing extrafont from CRAN will automatically install extrafontdb and Rttf2pt1
 ```
 
 
