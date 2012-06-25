@@ -15,6 +15,9 @@ Support for other kinds of fonts will be added in the future.
 It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04 and Windows XP.
 
 
+If you want to use the TeX Computer Modern fonts in PDF files, also see the [fontcm](https://github.com/wch/fontcm) package.
+
+
 # Using extrafont
 
 ## Requirements
