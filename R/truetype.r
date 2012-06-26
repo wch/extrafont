@@ -120,10 +120,17 @@ ttf_find_default_path <- function() {
         "/usr/X11R6/lib/X11/fonts/TrueType/")  # RH 6
     return(paths[file.exists(paths)])
 
+  } else if (grepl("^freebsd", os)) {
+    # Possible font paths, depending on installed ports
+    paths <-
+      c("/usr/local/share/fonts/truetype/",
+        "/usr/local/lib/X11/fonts/")
+    return(paths[file.exists(paths)])
+
   } else if (grepl("^mingw", os)) {
     return(paste(Sys.getenv("SystemRoot"), "\\Fonts", sep=""))
   } else {
-    stop("Unknown platform. Sorry!")
+    stop("Unknown platform. Don't know where to look for truetype fonts. Sorry!")
   }
 
 }
