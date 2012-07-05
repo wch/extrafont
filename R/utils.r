@@ -1,6 +1,6 @@
 # Borrowed this from staticdocs
 inst_path <- function() {
-  envname <- environmentName(environment(inst_path))
+  envname <- environmentName(parent.env(environment()))
 
   # If installed in package, envname == "extrafont"
   # If loaded with load_all, envname == "package:extrafont"
