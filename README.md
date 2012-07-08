@@ -17,6 +17,7 @@ It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04 and Windows XP.
 
 If you want to use the TeX Computer Modern fonts in PDF files, also see the [fontcm](https://github.com/wch/fontcm) package.
 
+The extrafont package also makes it easier to use Windows TrueType fonts when creating bitmap files.
 
 # Using extrafont
 
@@ -134,6 +135,21 @@ If a font is embedded, it will say "Embedded Subset" by the font's name; otherwi
 On Linux you can also use evince (the default PDF viewer) to view embedded fonts.
 Open the file and go to File->Properties->Fonts.
 If a font is embedded, it will say "Embedded subset"; otherwise it will say "Not embedded".
+
+### Windows bitmap output
+
+extrafont also makes it easier to use fonts in Windows for bitmap output.
+
+```R
+# Register fonts for Windows bitmap output
+loadfonts("win")
+
+ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point() +
+    opts(title="Title text goes here") +
+    opts(plot.title = theme_text(size = 16, family="Georgia", face="italic"))
+
+ggsave("fonttest-win.pdf")
+```
 
 
 # Font packages
