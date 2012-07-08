@@ -6,10 +6,13 @@
 #'
 #' @param device The output device. Can be \code{"pdf"} (the default),
 #'   \code{"postscript"}, or \code{"win"}.
+#' @param quiet If \code{FALSE}, print a status message as each font
+#'   is registered. If \code{TRUE}, don't print.
+#'
 #'
 #' @seealso \code{\link{embed_fonts}}
 #' @export
-loadfonts <- function(device = "pdf") {
+loadfonts <- function(device = "pdf", quiet = FALSE) {
   fontdata <- fonttable()
 
   if (device == "pdf") {
@@ -31,7 +34,9 @@ loadfonts <- function(device = "pdf") {
   if (device %in% c("pdf", "postscript")) {
     for (family in unique(fontdata$FamilyName)) {
       if (family %in% cfonts) {
-        message(family, " already registered with ", ffname, "().")
+        if (!quiet)
+          message(family, " already registered with ", ffname, "().")
+
         next()
       }
 
@@ -79,7 +84,8 @@ loadfonts <- function(device = "pdf") {
       # pdfFonts("Arial" = Type1Font("Arial",
       #   file.path(afmpath, c("Arial.afm", "Arial Bold.afm",
       #                        "Arial Italic.afm", "Arial Italic.afm"))))
-      message("Registering font with R using ", ffname, "(): ", family)
+      if (!quiet)
+        message("Registering font with R using ", ffname, "(): ", family)
 
       # Since 'family' is a string containing the name of the argument, we
       # need to use do.call
@@ -93,7 +99,9 @@ loadfonts <- function(device = "pdf") {
   } else if (device == "win") {
     for (family in unique(fontdata$FamilyName)) {
       if (family %in% cfonts) {
-        message(family, " already registered with ", ffname, "().")
+        if (!quiet)
+          message(family, " already registered with ", ffname, "().")
+
         next()
       }
 
@@ -102,7 +110,8 @@ loadfonts <- function(device = "pdf") {
 
       # Now we can register the font with R, with something like this:
       # windowsFonts("Arial" = windowsFont("Arial"))
-      message("Registering font with R using ", ffname, "(): ", family)
+      if (!quiet)
+        message("Registering font with R using ", ffname, "(): ", family)
 
       # Since 'family' is a string containing the name of the argument, we
       # need to use do.call
