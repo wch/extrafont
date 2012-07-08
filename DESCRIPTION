@@ -1,14 +1,15 @@
 Package: extrafont
 Title: Tools for using fonts
-Version: 0.9
+Version: 0.10
 Author: Winston Chang <winston@stdout.org>,
 Maintainer: Winston Chang <winston@stdout.org>
 Description: Tools to using fonts other than the standard PostScript fonts.
-    This package makes it easy to use system TrueType fonts and with
-    PDF or PostScript output files. It can also be used with fonts packaged
-    specifically to be used with it, such as the fontcm package, which
-    has Computer Modern PostScript fonts with math symbols.
-    See https://github.com/wch/extrafont for instructions and examples.
+    This package makes it easy to use system TrueType fonts and with PDF or
+    PostScript output files, and with bitmap output files in Windows. extrafont
+    can also be used with fonts packaged specifically to be used with, such as
+    the fontcm package, which has Computer Modern PostScript fonts with math
+    symbols. See https://github.com/wch/extrafont for instructions and
+    examples.
 Depends:
     R (>= 2.15)
 Imports:
