@@ -1,6 +1,5 @@
-extrafont 0.9.1
+extrafont 0.10
 ----------------------------------------------------------------
-
 
 * A default Truetype font search path for FreeBSD has been added.
   (Thanks to Rainer Hurling)
