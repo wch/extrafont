@@ -1,2 +1,11 @@
+extrafont 0.9.1
+----------------------------------------------------------------
+
+
 * A default Truetype font search path for FreeBSD has been added.
   (Thanks to Rainer Hurling)
+
+* extrafont now also makes it easy to use fonts for bitmap output on
+  Windows. Use `loadfonts("win")` to register the fonts in Windows.
+
+* loadfonts() now has a `quiet` option to suppress output.
