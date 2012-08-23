@@ -57,6 +57,15 @@ afm_get_info <- function(filename) {
   else
     Symbol <- FALSE
 
+  # Sometimes the FamilyName is missing, like with Tahoma (on Mac), when
+  # the afm is generated with Freetype instead of ttf2pt1's built-in
+  # ttf.
+  if (length(FullName) == 0) {
+    FullName <- FamilyName
+    if (Bold)   FullName <- paste(FullName, "Bold")
+    if (Italic) FullName <- paste(FullName, "Italic")
+  }
+
   data.frame(FamilyName, FontName, FullName, afmfile = basename(filename),
              Bold, Italic, Symbol, afmsymfile = NA, stringsAsFactors = FALSE)
 }
