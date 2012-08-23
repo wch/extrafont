@@ -1,3 +1,9 @@
+extrafont 0.16.0.99
+----------------------------------------------------------------
+
+* Support for .otf and .ttc files added. This requires an updated
+  version of Rttf2pt1.
+
 extrafont 0.16
 ----------------------------------------------------------------
 
