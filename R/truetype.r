@@ -16,7 +16,7 @@ ttf_import <- function(paths = NULL, recursive = TRUE, pattern = NULL) {
 
   if (is.null(paths))  paths <- ttf_find_default_path()
 
-  ttfiles <- normalizePath(list.files(paths, pattern = "\\.ttf$",
+  ttfiles <- normalizePath(list.files(paths, pattern = "\\.(ttf|ttc|otf)$",
                                       full.names=TRUE, recursive = recursive,
                                       ignore.case = TRUE))
 
@@ -60,11 +60,11 @@ ttf_extract <- function(ttfiles) {
                          stringsAsFactors = FALSE)
 
   outfiles <- file.path(metrics_path(),
-                sub("\\.ttf$", "", basename(ttfiles), ignore.case = TRUE))
+                sub("\\.(ttf|ttc|otf)$", "", basename(ttfiles), ignore.case = TRUE))
 
   dir.create(file.path(tempdir(), "fonts"), showWarnings = FALSE)
   tmpfiles <- file.path(tempdir(), "fonts",
-                sub("\\.ttf$", "", basename(ttfiles), ignore.case = TRUE))
+                sub("\\.(ttf|ttc|otf)$", "", basename(ttfiles), ignore.case = TRUE))
 
   ttf2pt1 <- which_ttf2pt1()
 
@@ -72,8 +72,8 @@ ttf_extract <- function(ttfiles) {
   # -pft means use Freetype to process fonts
   # -a means extract all glyphs (needed for minus sign - latin1 doesn't include it)
   # -GfAe means extract AFM file only
-  if (.Platform$OS.type == "windows")  args <- c("-a", "-G", "fAe")
-  else                                 args <- c("-a", "-GfAe")
+  if (.Platform$OS.type == "windows")  args <- c("-a", "-p", "ft", "-G", "fAe")
+  else                                 args <- c("-a", "-pft", "-GfAe")
 
   for (i in seq_along(ttfiles)) {
     message(ttfiles[i], appendLF = FALSE)

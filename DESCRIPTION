@@ -16,7 +16,7 @@ Imports:
     extrafontdb,
     grDevices,
     utils,
-    Rttf2pt1
+    Rttf2pt1 (>= 1.1.99)
 Suggests:
     fontcm
 License: GPL-2
