@@ -13,7 +13,7 @@ type1_import <- function(pkgdir, pkgname = "") {
 
   # Copy the .afm files over
   afmfile <- list.files(file.path(pkgdir, "fonts", "metrics"), "*.afm",
-                        full.names = TRUE)
+                        full.names = TRUE, ignore.case = TRUE)
   file.copy(afmfile, metrics_path())
 
   # Create a data frame to start storing the info
@@ -23,8 +23,8 @@ type1_import <- function(pkgdir, pkgname = "") {
 
 
   # Match up with the .pfb files
-  pfbfile <- list.files(file.path(pkgdir, "fonts", "outlines"), 
-                         "*.pfb", full.names = TRUE)
+  pfbfile <- list.files(file.path(pkgdir, "fonts", "outlines"), "*.pfb",
+                        full.names = TRUE, ignore.case = TRUE)
   
   # Set up the pfb data to merge
   pfbdata <- data.frame(fontfile = pfbfile,

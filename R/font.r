@@ -95,11 +95,13 @@ font_addpackage <- function(pkg = NULL) {
 
   pkgdir <- system.file(package = pkg)
 
-  if (length(list.files(file.path(pkgdir, "fonts", "metrics"), "*.afm")) > 0) {
+  if (length(list.files(file.path(pkgdir, "fonts", "metrics"), "*.afm",
+                                  ignore.case = TRUE)) > 0) {
     # It's a type1 (postscript) package
     type1_import(pkgdir, pkgname = pkg)
 
-  } else if(length(list.files(file.path(pkgdir, "fonts"), "*.ttf")) > 0) {
+  } else if(length(list.files(file.path(pkgdir, "fonts"), "*.ttf",
+                                        ignore.case = TRUE)) > 0) {
     # It's a ttf package
     # TODO: Implement this
     stop("ttf font package import not yet implemented.")

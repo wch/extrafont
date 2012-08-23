@@ -4,7 +4,8 @@ afm_scan_files <- function(path = NULL) {
   if (is.null(path))  path <- metrics_path()
 
   message("Scanning afm files in ", path)
-  afmfiles <- normalizePath(list.files(path, pattern = "\\.afm$", full.names=TRUE))
+  afmfiles <- normalizePath(list.files(path, pattern = "\\.afm$",
+                              full.names = TRUE, ignore.case = TRUE))
 
   # Build a table of information of all the afm files
   afmdata <- lapply(afmfiles, afm_get_info)

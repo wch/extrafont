@@ -16,7 +16,8 @@ ttf_import <- function(paths = NULL, recursive = TRUE) {
   if (is.null(paths))  paths <- ttf_find_default_path()
 
   ttfiles <- normalizePath(list.files(paths, pattern = "\\.ttf$",
-                                      full.names=TRUE, recursive = recursive))
+                                      full.names=TRUE, recursive = recursive,
+                                      ignore.case = TRUE))
 
   # This message really belongs in ttf_scan_files, but the pathnames
   # are lost by that point...
@@ -52,10 +53,12 @@ ttf_extract <- function(ttfiles) {
   fontdata <- data.frame(fontfile = ttfiles, FontName = "", 
                          stringsAsFactors = FALSE)
 
-  outfiles <- file.path(metrics_path(), sub("\\.ttf$", "", basename(ttfiles)))
+  outfiles <- file.path(metrics_path(),
+                sub("\\.ttf$", "", basename(ttfiles), ignore.case = TRUE))
 
   dir.create(file.path(tempdir(), "fonts"), showWarnings = FALSE)
-  tmpfiles <- file.path(tempdir(), "fonts", sub("\\.ttf$", "", basename(ttfiles)))
+  tmpfiles <- file.path(tempdir(), "fonts",
+                sub("\\.ttf$", "", basename(ttfiles), ignore.case = TRUE))
 
   ttf2pt1 <- which_ttf2pt1()
   # Windows passes the args differently
