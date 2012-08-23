@@ -13,7 +13,7 @@
 font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE) {
 
   if (prompt) {
-    resp <- readline("Importing fonts may take a few minutes, depending on the number of fonts and the speed of the system. Continue? [y/n] ")
+    resp <- readline("Importing fonts may take a few minutes, depending on the number of fonts and the speed of the system.\nContinue? [y/n] ")
     if (tolower(resp) != "y") {
       message("Exiting.")
       return(invisible())
