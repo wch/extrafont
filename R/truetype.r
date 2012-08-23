@@ -4,7 +4,10 @@
 #   is properly installed as a package)
 # - Create fonttable.csv
 # - Create Fontmap file (for Ghostscript)
-#' Imports all TrueType fonts in a directory and all subdirectories
+#' Imports all TrueType and OpenType fonts in a directory and all subdirectories
+#'
+#' This will import files with the extensions \code{.ttf}, \code{.ttc}, and
+#' \code{.otf}.
 #'
 #' @param paths A vector of directories to search in. (Default is to auto-detect based on OS)
 #' @param recursive Search recursively in directories? (Default TRUE)
