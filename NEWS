@@ -1,3 +1,5 @@
+* extrafont now ignores case when searching for font files.
+
 extrafont 0.10
 ----------------------------------------------------------------
 
