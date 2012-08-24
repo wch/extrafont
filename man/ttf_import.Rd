@@ -2,7 +2,8 @@
 \alias{ttf_import}
 \title{Imports all TrueType fonts in a directory and all subdirectories}
 \usage{
-  ttf_import(paths = NULL, recursive = TRUE)
+  ttf_import(paths = NULL, recursive = TRUE,
+    pattern = NULL)
 }
 \arguments{
   \item{paths}{A vector of directories to search in.
@@ -10,6 +11,9 @@
 
   \item{recursive}{Search recursively in directories?
   (Default TRUE)}
+
+  \item{pattern}{A regular expression that the filenames
+  must match.}
 }
 \description{
   Imports all TrueType fonts in a directory and all

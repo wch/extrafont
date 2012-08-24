@@ -3,7 +3,7 @@
 \title{Import system fonts}
 \usage{
   font_import(paths = NULL, recursive = TRUE,
-    prompt = TRUE)
+    prompt = TRUE, pattern = NULL)
 }
 \arguments{
   \item{paths}{A vector of directories to search in.
@@ -13,6 +13,9 @@
   (Default TRUE)}
 
   \item{prompt}{Show confirmation prompt? (Default TRUE)}
+
+  \item{pattern}{A regular expression that the filenames
+  must match.}
 }
 \description{
   Presently only supports TrueType fonts.
