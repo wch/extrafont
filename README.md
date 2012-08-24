@@ -6,7 +6,7 @@ Fonts installed through this package can be used with PDF or PostScript output f
 There are two hurdles for using fonts in PDF (or Postscript) output files:
 
 * Making R aware of the font and the dimensions of the characters.
-* Embedding the fonts so that the PDF can be displayed properly on a device that doesn't have the font.
+* Embedding the fonts so that the PDF can be displayed properly on a device that doesn't have the font. This is usually needed if you want to share PDF files with others.
 
 The extrafont package makes both of these things easier.
 
