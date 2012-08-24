@@ -1,3 +1,6 @@
+extrafont 0.11
+----------------------------------------------------------------
+
 * extrafont now ignores case when searching for font files.
 
 * All glyphs are imported from Truetype fonts. This fixes problems where
