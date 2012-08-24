@@ -82,4 +82,6 @@ gzcopy <- function(src, dest = NULL, delete = FALSE) {
   destfile <- gzfile(dest, "wb")
   writeBin(srcdat, destfile)
   close(destfile)
+
+  if (delete)  unlink(src)
 }
