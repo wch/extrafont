@@ -1,10 +1,10 @@
 
-# Reads all the .afm files and builds a table of information about them. 
+# Reads all the .afm (and .afm.gz) files and builds a table of information about them.
 afm_scan_files <- function(path = NULL) {
   if (is.null(path))  path <- metrics_path()
 
   message("Scanning afm files in ", path)
-  afmfiles <- normalizePath(list.files(path, pattern = "\\.afm$",
+  afmfiles <- normalizePath(list.files(path, pattern = "\\.afm(\\.gz)?$",
                               full.names = TRUE, ignore.case = TRUE))
 
   # Build a table of information of all the afm files
@@ -17,7 +17,11 @@ afm_scan_files <- function(path = NULL) {
 
 # Read in font information from an .afm file
 afm_get_info <- function(filename) {
-  fd <- file(filename, "r")
+  if (grepl("\\.gz", filename)) {
+    fd <- gzfile(filename, "r")
+  } else {
+    fd <- file(filename, "r")
+  }
   text <- readLines(fd, 30)  # Reading 30 lines should be more than enough
   close(fd)
 

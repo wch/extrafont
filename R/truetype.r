@@ -104,8 +104,9 @@ ttf_extract <- function(ttfiles) {
 
     } else {
       fontdata$FontName[i] <- fontname
-      file.copy(paste(tmpfiles[i], ".afm", sep=""),
-        paste(outfiles[i], ".afm", sep=""))
+      gzcopy(paste(tmpfiles[i], ".afm", sep=""),
+             paste(outfiles[i], ".afm.gz", sep=""),
+             delete = TRUE)
       message(" => ", paste(outfiles[i], sep=""))
     }
   }

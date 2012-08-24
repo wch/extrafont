@@ -64,3 +64,22 @@ escapepath_os <- function(path) {
     path
   }
 }
+
+# gzip a file
+#
+# @param src Source filename.
+# @param dest Destination filename. Defaults to source filename with .gz
+# @param delete Delete the source file when done?
+# Currently the maximum file size is 100MB
+gzcopy <- function(src, dest = NULL, delete = FALSE) {
+  srcfile <- file(src, "rb")
+  srcdat <- readBin(srcfile, "raw", n = 1e8)
+  close(srcfile)
+
+  # Add .gz if destination file is not specified
+  if (is.null(dest))  dest <- paste(src, ".gz", sep = "")
+
+  destfile <- gzfile(dest, "wb")
+  writeBin(srcdat, destfile)
+  close(destfile)
+}
