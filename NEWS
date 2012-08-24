@@ -1,5 +1,12 @@
 * extrafont now ignores case when searching for font files.
 
+* All glyphs are imported from Truetype fonts. This fixes problems where
+  hyphens and minus signs were not allocated enough space. (Thanks to
+  Brian Kriegler and Erik Iverson for their investigation of the problem.
+  Fixes #11)
+
+* The AFM (font metrics) files are now gzipped.
+
 extrafont 0.10
 ----------------------------------------------------------------
 
