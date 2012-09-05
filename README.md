@@ -1,23 +1,23 @@
 # extrafont
 
-The extrafont package makes it easier to use fonts other than the basic PostScript fonts that R uses, such as system TrueType fonts.
-Fonts installed through this package can be used with PDF or PostScript output files, but they won't necessarily be available for screen or bitmap output.
+The extrafont package makes it easier to use fonts other than the basic PostScript fonts that R uses.
+Fonts that are imported into extrafont can be used with PDF or PostScript output files. On Windows, extrafont will also make system fonts available for bitmap output.
 
 There are two hurdles for using fonts in PDF (or Postscript) output files:
 
 * Making R aware of the font and the dimensions of the characters.
-* Embedding the fonts so that the PDF can be displayed properly on a device that doesn't have the font. This is usually needed if you want to share PDF files with others.
+* Embedding the fonts in the PDF file so that the PDF can be displayed properly on a device that doesn't have the font. This is usually needed if you want to print the PDF file or share it with others.
 
 The extrafont package makes both of these things easier.
 
-Presently it allows the use of system TrueType fonts with R, and installation of Type 1 font packages.
+Presently it allows the use of TrueType fonts with R, and installation of special font packages.
 Support for other kinds of fonts will be added in the future.
 It has been tested on Mac OS X 10.7 and Ubuntu Linux 12.04 and Windows XP.
 
 
-If you want to use the TeX Computer Modern fonts in PDF files, also see the [fontcm](https://github.com/wch/fontcm) package.
+The instructions below are written for PDF files, although the information also applies to PostScript files.
 
-The extrafont package also makes it easier to use Windows TrueType fonts when creating bitmap files.
+If you want to use the TeX Computer Modern fonts in PDF files, also see the [fontcm](https://github.com/wch/fontcm) package.
 
 # Using extrafont
 
@@ -25,12 +25,12 @@ The extrafont package also makes it easier to use Windows TrueType fonts when cr
 
 You must have Ghostscript installed on your system for embedding fonts into PDF files.
 
-This package requires the **[extrafontdb](https://github.com/wch/extrafontdb)** package to be installed.
+Extrafont requires the **[extrafontdb](https://github.com/wch/extrafontdb)** package to be installed.
 extrafontdb contains the font database, while this package contains the code to install fonts and register them in the database.
 
 It also requires the **[Rttf2pt1](https://github.com/wch/Rttf2pt1)** package to be installed.
 Rttf2pt1 contains the ttf2pt1 program which is used to read and manipulate TrueType fonts.
-It is in a separate pacakge for licensing reasons.
+It is in a separate package for licensing reasons.
 
 Install extrafont from CRAN will automatically install extrafontdb and Rttf2pt1:
 
@@ -40,13 +40,14 @@ library(extrafont)
 ```
 
 
-There are three categories of things you need to do to use extrafont:
+To use extrafont in making graphs, you'll need to do the following:
 
-* things that need to be run once
-* things that need to be run in each R session
-* things that need to be run for each output file
+* Import fonts into the extrafont database. (Needs to be done once)
+* Register the fonts from the extrafont database with R's PDF (or PostScript) output device. (Needs to be done once per R session)
+* Create the graphics that use the fonts.
+* Embed the fonts into the PDF file. (Needs to be done for each file)
 
-## One-time setup
+## Import fonts into the extrafont database
 
 First, import the fonts installed on the system.
 (This only works with TrueType fonts right now.)
@@ -62,99 +63,128 @@ This does the following:
 * Finds the fonts on your system.
 * Extracts the FontName (like ArialNarrow-BoldItalic).
 * Extracts/converts a PostScript .afm file for each font. This file contains the *font metrics*, which are the rectangular dimensions of each character that are needed for placement of the characters. These are not the *glyphs*, which the curves defining the visual shape of each character. The glyphs are only in the .ttf file.
-* Scan all the resulting .afm files, and save a table with information about them.
-This table will be used when making plots with R.
+* Scan all the resulting .afm files, and save a table with information about them. This table will be used when making plots with R.
 * Creates a file `Fontmap`, which contains the mapping from FontName to the .ttf file. This is required by Ghostscript for embedding fonts.
 
 
 You can view the resulting table of font information with:
 
 ```R
-# Show entire table
-fonttable()
-
 # Vector of font family names
 fonts()
+
+# Show entire table
+fonttable()
 ```
 
-If you install new fonts on your computer, you'll have to redo this stage to re-import them for R.
+If you install new fonts on your computer, you'll have to run `font_import()` again.
 
-## Run each R session
+## Register the fonts with the PDF output device
 
-This registers each of the fonts in the afm table with R. This is needed for R to know about the new fonts (but it forgets about them after each session).
+The next step is to register the fonts in the afm table with R's PDF (or PostScript) output device.
+This is needed to create PDF files with the fonts.
+It must be run once per session, since R will forget about the fonts after each session.
 
 ```R
 loadfonts()
+# For PostScript output, use loadfonts(device="postscript")
+# Suppress output with loadfonts(quiet=TRUE)
 ```
 
-If you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows installation notes below.)
+
+## Create figures with the fonts
+
+
+Here's an example of PDFs made with base graphics and with ggplot2.
+These examples use the font Impact, which should be available on Windows and Mac.
+(Use `fonts()` to see what fonts are available on your system)
 
 ```R
-# This is needed only on Windows
-# (adjust the path to match your installation of Ghostscript)
+pdf("font_plot.pdf", family="Impact", width=4, height=4)
+plot(mtcars$mpg, mtcars$wt, 
+     main = "Fuel Efficiency of 32 Cars",
+     xlab = "Weight (x1000 lb)",
+     ylab = "Miles per Gallon")
+dev.off()
+
+
+library(ggplot2)
+p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point() +
+  ggtitle("Fuel Efficiency of 32 Cars") +
+  xlab("Weight (x1000 lb)") + ylab("Miles per Gallon") +
+  theme(text=element_text(size=16, family="Impact"))
+
+ggsave("font_ggplot.pdf", plot=p,  width=4, height=4)
+```
+
+The first time you use a font, it may throw some warnings about unknown characters.
+This should be harmless, but if it causes any problems, please report them.
+
+
+## Embed the fonts
+
+After you create a PDF output file, you should *embed* the fonts into the file.
+There are 14 PostScript *base fonts* never need to be embedded, because they are included with every PDF/PostScript renderer.
+All other fonts should be embedded into the PDF files.
+
+
+First, if you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows installation notes below.)
+
+```R
+# Needed only on Windows - run once per R session
+# Adjust the path to match your installation of Ghostscript
 Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 ```
 
 
-## Run for each output file
-
-After you create a PDF output file, you should *embed* the fonts into the file.
-The 14 PostScript *base fonts* never need to be embedded, because they are included with every PostScript/PDF renderer.
-However, the extra fonts aren't necessarily available on other devices, so they should be embedded.
-The `embed_fonts()` function will do this.
-
-Here's an example of a PDF plot made with ggplot2. (Run only the plots that use fonts available on your system.)
+As the name suggests, `embed_fonts()` will embed the fonts:
 
 ```R
-pdf('fonttest.pdf', width=4, height=4)
-library(ggplot2)
-p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
-
-# On Mac and Windows, Impact should be available
-p + opts(axis.title.x=theme_text(size=16, family="Impact", colour="red"))
-
-# On Linux, Purisa and/or Droid Serif may be available
-p + opts(axis.title.x=theme_text(size=16, family="Purisa", colour="red"))
-p + opts(axis.title.x=theme_text(size=16, family="Droid Serif", colour="red"))
-dev.off()
-```
-
-The first time you use a font, it may throw some warnings about unknown characters.
-
-
-After creating the PDF file, embed the fonts:
-
-```R
-# This does the embedding
-embed_fonts('fonttest.pdf', outfile='fonttest-embed.pdf')
+embed_fonts("font_plot.pdf", outfile="font_plot_embed.pdf")
+embed_fonts("font_ggplot.pdf", outfile="font_ggplot_embed.pdf")
+# If outfile is not specified, it will overwrite the original file
 ```
 
 To check if the fonts have been properly embedded, open each of the PDF files with Adobe Reader, and go to File->Properties->Fonts.
 If a font is embedded, it will say "Embedded Subset" by the font's name; otherwise it will say nothing next to the name.
 
+With Adobe Reader, if a font is not embedded, it will be substituted by another font.
+This provides a way to see what your PDF will look like on printer or computer that doesn't have the font installed.
+Other PDF viewers may behave differently.
+For example, the Preview application on Mac OS X will automatically use system fonts to display non-embedded fonts -- this makes it impossible to tell whether the font is embedded in the PDF.
+
 On Linux you can also use evince (the default PDF viewer) to view embedded fonts.
 Open the file and go to File->Properties->Fonts.
 If a font is embedded, it will say "Embedded subset"; otherwise it will say "Not embedded".
 
-### Windows bitmap output
+If you are putting multiple PDF figures into a single document, it is more space-efficient to _not_ embed fonts in each figure, but instead embed the font in the final PDF document.
 
-extrafont also makes it easier to use fonts in Windows for bitmap output.
+## Windows bitmap output
+
+extrafont also makes it easier to use fonts in Windows for on-screen or bitmap output.
 
 ```R
 # Register fonts for Windows bitmap output
-loadfonts("win")
+loadfonts(device="win")
 
 ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point() +
-    opts(title="Title text goes here") +
-    opts(plot.title = theme_text(size = 16, family="Georgia", face="italic"))
+  ggtitle("Title text goes here") +
+  theme(plot.title = element_text(size = 16, family="Georgia", face="italic"))
 
-ggsave("fonttest-win.pdf")
+ggsave("fonttest-win.png")
 ```
 
+Since the output is a bitmap file, there's no need to embed the fonts.
 
 # Font packages
 
-Packages containing fonts can also be used.
+Extrafont supports _font packages_, which contain fonts that are packaged in a particular way so that they can be imported into extrafont.
+These fonts are installed as R packages; they are not installed for the computer operating system.
+Fonts that are installed this way will be available only for PDF or PostScript output.
+They will not be available for on-screen or bitmap output, which requires that the font be installed for operating system, not just with R and extrafont.
+
+Presently extrafont supports only font packages with PostScript Type 1 fonts.
+
 See the [fontcm](https://github.com/wch/fontcm) package containing Computer Modern fonts for an example.
 
 *****
@@ -164,7 +194,8 @@ See the [fontcm](https://github.com/wch/fontcm) package containing Computer Mode
 ## Rttf2pt1
 
 The source code for the utility program `ttf2pt1` is in the package Rttf2pt1.
-It will be compiled on installation, so you need a build environment on your system (unless you install Rttf2pt1 as a precompiled package from CRAN).
+CRAN has pre-compiled Windows and Mac OS X binaries.
+For other platforms, and when installing from source, it will be compiled on installation, so you need a build environment on your system.
 
 
 ## Windows installation notes
@@ -176,6 +207,12 @@ For example, when Ghostscript 9.05 is installed to the default location, running
 
 ```R
 Sys.setenv(R_GSCMD="C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
+```
 
-# After this is done, you can run embed_fonts()
+## Resetting the font database
+
+To reset the extrafont database, reinstall the extrafontdb package:
+
+```R
+install.packages("extrafontdb")
 ```
