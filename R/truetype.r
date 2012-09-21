@@ -125,20 +125,26 @@ ttf_find_default_path <- function() {
   os <- sessionInfo()$R.version$os
 
   if (grepl("^darwin", os)) {
-    return("/Library/Fonts")
+    paths <-
+      c("/Library/Fonts/",                      # System fonts
+        "/System/Library/Fonts",                # More system fonts
+        "~/Library/Fonts/")                     # User fonts
+    return(paths[file.exists(paths)])
 
   } else if (grepl("^linux-gnu", os)) {
     # Possible font paths, depending on the system
     paths <-
-      c("/usr/share/fonts/truetype/",         # Ubuntu/Debian
-        "/usr/X11R6/lib/X11/fonts/TrueType/")  # RH 6
+      c("/usr/share/fonts/truetype/",           # Ubuntu/Debian
+        "/usr/X11R6/lib/X11/fonts/TrueType/",   # RH 6
+        "~/.fonts/")                            # User fonts
     return(paths[file.exists(paths)])
 
   } else if (grepl("^freebsd", os)) {
     # Possible font paths, depending on installed ports
     paths <-
       c("/usr/local/share/fonts/truetype/",
-        "/usr/local/lib/X11/fonts/")
+        "/usr/local/lib/X11/fonts/",
+        "~/.fonts/")                            # User fonts
     return(paths[file.exists(paths)])
 
   } else if (grepl("^mingw", os)) {
