@@ -134,7 +134,7 @@ ttf_find_default_path <- function() {
   } else if (grepl("^linux-gnu", os)) {
     # Possible font paths, depending on the system
     paths <-
-      c("/usr/share/fonts/truetype/",           # Ubuntu/Debian
+      c("/usr/share/fonts/",                    # Ubuntu/Debian/Arch/Gentoo
         "/usr/X11R6/lib/X11/fonts/TrueType/",   # RH 6
         "~/.fonts/")                            # User fonts
     return(paths[file.exists(paths)])
