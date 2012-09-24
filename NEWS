@@ -1,3 +1,6 @@
+* One of the Linux font search paths has been changed to /usr/share/fonts, so
+  that it works with Arch and Gentoo.
+
 * extrafont now searches in the user font directory, ~/.fonts on Linux
   and BSD, and ~/Library/Fonts on Mac OS X.
 
