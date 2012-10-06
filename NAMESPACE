@@ -1,3 +1,4 @@
+export(choose_font)
 export(embed_fonts)
 export(font_addpackage)
 export(font_import)
