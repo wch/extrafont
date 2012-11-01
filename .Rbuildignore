@@ -1,0 +1,6 @@
+.gitignore
+.*\.sublime-project$
+.*\.sublime-workspace$
+^.*\.Rproj$
+^\.Rproj\.user$
+^testcode/.*
