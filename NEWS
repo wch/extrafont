@@ -1,3 +1,6 @@
+extrafont 0.12
+----------------------------------------------------------------
+
 * One of the Linux font search paths has been changed to /usr/share/fonts, so
   that it works with Arch and Gentoo.
 

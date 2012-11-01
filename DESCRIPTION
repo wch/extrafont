@@ -1,6 +1,6 @@
 Package: extrafont
 Title: Tools for using fonts
-Version: 0.11.99
+Version: 0.12
 Author: Winston Chang <winston@stdout.org>,
 Maintainer: Winston Chang <winston@stdout.org>
 Description: Tools to using fonts other than the standard PostScript fonts.
