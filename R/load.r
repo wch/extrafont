@@ -153,6 +153,13 @@ loadfonts <- function(device = "pdf", quiet = FALSE) {
 #' @seealso \code{\link{loadfonts}}
 #' @export
 embed_fonts <- function(file, format, outfile = file, options = "") {
+  if (missing(format)) {
+    suffix <- gsub(".+[.]", "", file)
+    format <- switch(suffix, ps = , eps = "pswrite", pdf = "pdfwrite")
+  }
+
+  file <- paste("'", file, "'", sep = "")
+
   embedFonts(file = file, format = format, outfile = outfile,
     options = paste(
       paste("-I", shQuote(fixpath_os(fontmap_path())), sep = ""),
