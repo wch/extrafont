@@ -19,7 +19,7 @@ choose_font <- function(fonts, quiet=TRUE) {
   fonts <- c(fonts, "")
   installed <- c(fonts(), "")
   touse <- fonts[fonts %in% installed][1]
-  if (!quiet & (touse != fonts[1])) {
+  if (!quiet && (touse != fonts[1])) {
     warning(sprintf("Font family '%s' not installed, using '%s' instead",
                     fonts[1], touse))
   }
