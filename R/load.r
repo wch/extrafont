@@ -158,6 +158,13 @@ embed_fonts <- function(file, format, outfile = file, options = "") {
     format <- switch(suffix, ps = , eps = "pswrite", pdf = "pdfwrite")
   }
 
+  # To handle spaces, the input file can have quotes, but the output file
+  # shouldn't for some reason. We need to force evaluation here; if not, then
+  # lazy evaluation will result in outfile having quotes because of the change
+  # to file, below.
+  force(outfile)
+
+  # Put quotes around filenames so that spaces will work
   file <- paste("'", file, "'", sep = "")
 
   embedFonts(file = file, format = format, outfile = outfile,
