@@ -28,3 +28,4 @@ Collate:
     'afm.r'
     'font.r'
     'fonttable.r'
+    'choosefont.r'
