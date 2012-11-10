@@ -13,9 +13,9 @@
 #' on the system or \code{""} if none of those are installed.
 #' @export
 #' @examples
-#' choose_font(c("GillSans",  "Verdana", "sans"), quiet=TRUE)
-#' choose_font(c("BemeboStd", "Garamond", "serif"), quiet=TRUE)
-choose_font <- function(fonts, quiet=TRUE) {
+#' choose_font(c("GillSans",  "Verdana", "sans"), quiet = TRUE)
+#' choose_font(c("BemeboStd", "Garamond", "serif"), quiet = TRUE)
+choose_font <- function(fonts, quiet = TRUE) {
   fonts <- c(fonts, "")
   installed <- c(fonts(), "")
   touse <- fonts[fonts %in% installed][1]
