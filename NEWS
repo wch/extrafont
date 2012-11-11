@@ -3,6 +3,10 @@ extrafont 0.12.99
 
 * embed_fonts() now can handle filenames with spaces.
 
+* A new function choose_fonts() has been added, which allows the user to
+  specify a set of fonts, and it will return the first one available on the
+  current system. (Thanks for Jeffrey Arnold)
+
 extrafont 0.12
 ----------------------------------------------------------------
 
