@@ -12,10 +12,8 @@ Description: Tools to using fonts other than the standard PostScript fonts.
     examples.
 Depends:
     R (>= 2.15),
-    utils,
-    grDevices,
-    extrafontdb
 Imports:
+    extrafontdb,
     Rttf2pt1
 Suggests:
     fontcm
