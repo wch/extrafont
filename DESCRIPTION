@@ -14,6 +14,8 @@ Depends:
     R (>= 2.15),
 Imports:
     extrafontdb,
+    grDevices,
+    utils,
     Rttf2pt1
 Suggests:
     fontcm

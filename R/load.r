@@ -11,6 +11,7 @@
 #'
 #'
 #' @seealso \code{\link{embed_fonts}}
+#' @import grDevices
 #' @export
 loadfonts <- function(device = "pdf", quiet = FALSE) {
   fontdata <- fonttable()

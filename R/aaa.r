@@ -1,5 +1,5 @@
 .onAttach <- function(libname, pkgname) {
-    message("Registering fonts with R")
+    packageStartupMessage("Registering fonts with R")
 
     ## Load all fonts
     loadfonts("pdf", quiet = TRUE)

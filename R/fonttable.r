@@ -11,12 +11,13 @@ fonts <- function() {
 
 #' Returns the full font table
 #'
+#' @importFrom utils read.csv
 #' @export
 fonttable <- function() {
   if (!file.exists(fonttable_file()))
     return(data.frame())
 
-  read.csv(fonttable_file(), stringsAsFactors = FALSE)
+  utils::read.csv(fonttable_file(), stringsAsFactors = FALSE)
 }
 
 
