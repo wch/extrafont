@@ -1,8 +1,10 @@
 .onAttach <- function(libname, pkgname) {
+    message("Registering fonts with R")
+
     ## Load all fonts
-    loadfonts("pdf")
-    loadfonts("postscript")
+    loadfonts("pdf", quiet = TRUE)
+    loadfonts("postscript", quiet = TRUE)
     if (.Platform$OS.type == "windows") {
-        loadfonts("win")
+        loadfonts("win", quiet = TRUE)
     }
 }
