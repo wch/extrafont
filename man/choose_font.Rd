@@ -25,7 +25,7 @@
   property.
 }
 \examples{
-choose_font(c("GillSans",  "Verdana", "sans"), quiet=TRUE)
-choose_font(c("BemeboStd", "Garamond", "serif"), quiet=TRUE)
+choose_font(c("GillSans",  "Verdana", "sans"), quiet = TRUE)
+choose_font(c("BemeboStd", "Garamond", "serif"), quiet = TRUE)
 }
 
