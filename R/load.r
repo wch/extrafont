@@ -153,6 +153,9 @@ loadfonts <- function(device = "pdf", quiet = FALSE) {
 #' @seealso \code{\link{loadfonts}}
 #' @export
 embed_fonts <- function(file, format, outfile = file, options = "") {
+  # This type detection code is necessary because of a bug in embedFonts where
+  # it does not correctly detect file type when there are space in the filename.
+  # https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=15149
   if (missing(format)) {
     suffix <- gsub(".+[.]", "", file)
     format <- switch(suffix, ps = , eps = "pswrite", pdf = "pdfwrite")
