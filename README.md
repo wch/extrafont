@@ -83,9 +83,11 @@ If you install new fonts on your computer, you'll have to run `font_import()` ag
 
 The next step is to register the fonts in the afm table with R's PDF (or PostScript) output device.
 This is needed to create PDF files with the fonts.
-It must be run once per session, since R will forget about the fonts after each session.
+As of extrafont version 0.13, this must be run only in the first session when you import your fonts.
+In sessions started after the fonts have been imported, simply loading the package with `library(extrafont)` this step isn't necessary, since it will automatically register the fonts with R.
 
 ```R
+# Only necessary in session where you ran font_import()
 loadfonts()
 # For PostScript output, use loadfonts(device="postscript")
 # Suppress output with loadfonts(quiet=TRUE)
