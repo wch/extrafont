@@ -154,22 +154,26 @@ loadfonts <- function(device = "pdf", quiet = FALSE) {
 #' @seealso \code{\link{loadfonts}}
 #' @export
 embed_fonts <- function(file, format, outfile = file, options = "") {
-  # This type detection code is necessary because of a bug in embedFonts where
-  # it does not correctly detect file type when there are space in the filename.
-  # https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=15149
-  if (missing(format)) {
-    suffix <- gsub(".+[.]", "", file)
-    format <- switch(suffix, ps = , eps = "pswrite", pdf = "pdfwrite")
+
+  # This code block is needed in R <= 2.15.2 because of a bug in embedFonts()
+  if (getRversion() <= numeric_version("2.15.2")) {
+    # This type detection code is necessary because of a bug in embedFonts where
+    # it does not correctly detect file type when there are space in the filename.
+    # https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=15149
+    if (missing(format)) {
+      suffix <- gsub(".+[.]", "", file)
+      format <- switch(suffix, ps = , eps = "pswrite", pdf = "pdfwrite")
+    }
+
+    # To handle spaces, the input file can have quotes, but the output file
+    # shouldn't for some reason. We need to force evaluation here; if not, then
+    # lazy evaluation will result in outfile having quotes because of the change
+    # to file, below.
+    force(outfile)
+
+    # Put quotes around filenames so that spaces will work
+    file <- shQuote(file)
   }
-
-  # To handle spaces, the input file can have quotes, but the output file
-  # shouldn't for some reason. We need to force evaluation here; if not, then
-  # lazy evaluation will result in outfile having quotes because of the change
-  # to file, below.
-  force(outfile)
-
-  # Put quotes around filenames so that spaces will work
-  file <- paste("'", file, "'", sep = "")
 
   embedFonts(file = file, format = format, outfile = outfile,
     options = paste(
