@@ -168,8 +168,8 @@ embed_fonts <- function(file, format, outfile = file, options = "") {
   # to file, below.
   force(outfile)
 
-  # Put quotes around filenames so that spaces will work
-  file <- paste("'", file, "'", sep = "")
+  # Quote filenames so that spaces will work
+  file <- shQuote(file)
 
   embedFonts(file = file, format = format, outfile = outfile,
     options = paste(
