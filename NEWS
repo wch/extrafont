@@ -5,6 +5,8 @@ extrafont 0.13.99
   "Resources", it gives an error. Now, in this situation, a temporary symlink
   is made to the fontmap path. (Thanks to Kohske Takahashi)
 
+* `loadfonts(quiet=TRUE)` no longer displays warning messages.
+
 extrafont 0.13
 ----------------------------------------------------------------
 
