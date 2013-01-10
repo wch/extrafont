@@ -44,7 +44,7 @@ fontmap_file <- function() {
 # This is needed because file.path() returns paths with '/' separators, even
 # on Windows. But when calling shell commands, they often need '\' instead.
 fixpath_os <- function(path) {
-  if (grepl("^mingw", sessionInfo()$R.version$os)) {
+  if (grepl("^mingw", R.version$os)) {
     gsub("/", "\\\\", path)
   } else {
     path
@@ -55,7 +55,7 @@ fixpath_os <- function(path) {
 # This is needed because in windows, sometimes the paths have '\'
 # and they need to be escaped by replacing them with '\\'.
 escapepath_os <- function(path) {
-  if (grepl("^mingw", sessionInfo()$R.version$os)) {
+  if (grepl("^mingw", R.version$os)) {
   # The reason it looks like it's replacing '\\\\' with '\\\\\\\' is that
   # the strings get escaped twice. So this really replaces '\' with '\\'.
   gsub("\\\\", "\\\\\\\\", path)

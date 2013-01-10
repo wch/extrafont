@@ -122,16 +122,15 @@ ttf_extract <- function(ttfiles) {
 
 # Returns vector of default truetype paths, depending on platform.
 ttf_find_default_path <- function() {
-  os <- sessionInfo()$R.version$os
 
-  if (grepl("^darwin", os)) {
+  if (grepl("^darwin", R.version$os)) {
     paths <-
       c("/Library/Fonts/",                      # System fonts
         "/System/Library/Fonts",                # More system fonts
         "~/Library/Fonts/")                     # User fonts
     return(paths[file.exists(paths)])
 
-  } else if (grepl("^linux-gnu", os)) {
+  } else if (grepl("^linux-gnu", R.version$os)) {
     # Possible font paths, depending on the system
     paths <-
       c("/usr/share/fonts/",                    # Ubuntu/Debian/Arch/Gentoo
@@ -139,7 +138,7 @@ ttf_find_default_path <- function() {
         "~/.fonts/")                            # User fonts
     return(paths[file.exists(paths)])
 
-  } else if (grepl("^freebsd", os)) {
+  } else if (grepl("^freebsd", R.version$os)) {
     # Possible font paths, depending on installed ports
     paths <-
       c("/usr/local/share/fonts/truetype/",
@@ -147,7 +146,7 @@ ttf_find_default_path <- function() {
         "~/.fonts/")                            # User fonts
     return(paths[file.exists(paths)])
 
-  } else if (grepl("^mingw", os)) {
+  } else if (grepl("^mingw", R.version$os)) {
     return(paste(Sys.getenv("SystemRoot"), "\\Fonts", sep=""))
   } else {
     stop("Unknown platform. Don't know where to look for truetype fonts. Sorry!")
