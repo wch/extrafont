@@ -53,16 +53,20 @@ loadfonts <- function(device = "pdf", quiet = FALSE) {
       # fonts like Apple Braille. If found, skip this iteration of the loop.
       if (length(regular) > 1  ||  length(bold)       > 1  ||
           length(italic)  > 1  ||  length(bolditalic) > 1) {
-        warning("More than one version of regular/bold/italic found for ",
-                family, ". Skipping setup for this font.")
+        if (!quiet) {
+          message("More than one version of regular/bold/italic found for ",
+                  family, ". Skipping setup for this font.")
+        }
         next()
       }
 
       # There should be a regular entry for most every font. Exceptions
       # include Brush Script MT.
       if (length(regular) == 0) {
-        warning("No regular (non-bold, non-italic) version of ", family,
-                ". Skipping setup for this font.")
+        if (!quiet) {
+          message("No regular (non-bold, non-italic) version of ", family,
+                  ". Skipping setup for this font.")
+        }
         next()
       }
 
