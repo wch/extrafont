@@ -1,3 +1,10 @@
+extrafont 0.13.99
+----------------------------------------------------------------
+
+* Workaround for a bug in ghostscript: if the fontmap path includes the string
+  "Resources", it gives an error. Now, in this situation, a temporary symlink
+  is made to the fontmap path. (Thanks to Kohske Takahashi)
+
 extrafont 0.13
 ----------------------------------------------------------------
 
