@@ -171,8 +171,23 @@ embed_fonts <- function(file, format, outfile = file, options = "") {
   # Quote filenames so that spaces will work
   file <- shQuote(file)
 
+  fontmap <- fixpath_os(fontmap_path())
+
+  # This is a hack to work around a bug in gs, as of version 9.05. When the
+  # fontmap path contains "Resources", it causes a confusing error about
+  # GenericResourceDir. On Macs, the default installation directory for R
+  # packages contains "Resources" in the path, so this problem is common.
+  # The workaround is to create a symlink to the fontmap path, which doesn't
+  # contain "Resources".
+  if (grepl("^darwin", R.version$os) && grepl("Resources", fontmap)) {
+    tmpdir <- tempfile()
+    file.symlink(fontmap, tmpdir)
+    on.exit(file.remove(tmpdir))
+    fontmap <- tmpdir
+  }
+
   embedFonts(file = file, format = format, outfile = outfile,
     options = paste(
-      paste("-I", shQuote(fixpath_os(fontmap_path())), sep = ""),
+      paste("-I", shQuote(fontmap), sep = ""),
       options))
 }
