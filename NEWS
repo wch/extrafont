@@ -1,4 +1,4 @@
-extrafont 0.13.99
+extrafont 0.14
 ----------------------------------------------------------------
 
 * Workaround for a bug in ghostscript: if the fontmap path includes the string
