@@ -8,4 +8,5 @@
 #' @name extrafont
 #' @docType package
 #' @aliases extrafont package-extrafont
+#' @import extrafontdb
 NULL
