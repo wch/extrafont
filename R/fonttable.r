@@ -41,6 +41,8 @@ fonttable_add <- function(fontdata = NULL, append = TRUE) {
   ft<- ft[, cols]
 
   message("Writing font table in ", fonttable_file())
+  # remove duplicate entries (caused by symlinks?)
+  ft <- unique(ft)
   write.csv(ft, file = fonttable_file(), row.names = FALSE)
 
   # Update the Fontmap file
