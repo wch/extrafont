@@ -1,6 +1,8 @@
 extrafont 0.15.0.99
 ----------------------------------------------------------------
 
+* When importing fonts, don't create duplicate entries. (Fixes #31. Thanks to
+  Dylan Schwilk)
 
 extrafont 0.15
 ----------------------------------------------------------------
