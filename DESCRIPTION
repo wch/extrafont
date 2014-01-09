@@ -11,7 +11,7 @@ Description: Tools to using fonts other than the standard PostScript fonts.
     symbols. See https://github.com/wch/extrafont for instructions and
     examples.
 Depends:
-    R (>= 2.15),
+    R (>= 2.15)
 Imports:
     extrafontdb,
     grDevices,
