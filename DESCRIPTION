@@ -21,14 +21,3 @@ Suggests:
     fontcm
 License: GPL-2
 URL: https://github.com/wch/extrafont
-Collate:
-    'aaa.r'
-    'load.r'
-    'truetype.r'
-    'utils.r'
-    'extrafont.r'
-    'type1.r'
-    'afm.r'
-    'font.r'
-    'fonttable.r'
-    'choosefont.r'

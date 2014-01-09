@@ -2,7 +2,7 @@
 \alias{embed_fonts}
 \title{Embeds fonts that are listed in the local Fontmap}
 \usage{
-  embed_fonts(file, format, outfile = file, options = "")
+embed_fonts(file, format, outfile = file, options = "")
 }
 \arguments{
   \item{file}{Name of input file.}
@@ -16,7 +16,7 @@
   \code{embedFonts}.}
 }
 \description{
-  Embeds fonts that are listed in the local Fontmap
+Embeds fonts that are listed in the local Fontmap
 }
 \examples{
 \donttest{
@@ -38,6 +38,6 @@ embed_fonts('fonttest.pdf', outfile='fonttest-embed.pdf')
 }
 }
 \seealso{
-  \code{\link{loadfonts}}
+\code{\link{loadfonts}}
 }
 

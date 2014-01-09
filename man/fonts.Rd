@@ -3,10 +3,10 @@
 \title{Show the fonts that are registered in the font table
 (and available for embedding)}
 \usage{
-  fonts()
+fonts()
 }
 \description{
-  Show the fonts that are registered in the font table (and
-  available for embedding)
+Show the fonts that are registered in the font table (and
+available for embedding)
 }
 

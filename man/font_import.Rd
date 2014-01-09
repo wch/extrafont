@@ -2,8 +2,8 @@
 \alias{font_import}
 \title{Import system fonts}
 \usage{
-  font_import(paths = NULL, recursive = TRUE,
-    prompt = TRUE, pattern = NULL)
+font_import(paths = NULL, recursive = TRUE, prompt = TRUE,
+  pattern = NULL)
 }
 \arguments{
   \item{paths}{A vector of directories to search in.
@@ -18,7 +18,7 @@
   must match.}
 }
 \description{
-  Presently only supports TrueType fonts.
+Presently only supports TrueType fonts.
 }
 \examples{
 font_import()
