@@ -1,4 +1,4 @@
-extrafont 0.15.0.99
+extrafont 0.16
 ----------------------------------------------------------------
 
 * When importing fonts, don't create duplicate entries. (Fixes #31. Thanks to
