@@ -104,9 +104,10 @@ ttf_extract <- function(ttfiles) {
 
     } else {
       fontdata$FontName[i] <- fontname
-      gzcopy(paste(tmpfiles[i], ".afm", sep=""),
+      gzcopy_exclude(paste(tmpfiles[i], ".afm", sep=""),
              paste(outfiles[i], ".afm.gz", sep=""),
-             delete = TRUE)
+             delete = TRUE,
+             exclusions = c("^Characters"))
       message(" => ", paste(outfiles[i], sep=""))
     }
   }

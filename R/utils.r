@@ -85,3 +85,34 @@ gzcopy <- function(src, dest = NULL, delete = FALSE) {
 
   if (delete)  unlink(src)
 }
+
+# gzip a file, excluding certain lines
+#
+# @param src Source filename.
+# @param dest Destination filename. Defaults to source filename with .gz
+# @param delete Delete the source file when done?
+# Currently the maximum file size is 100MB
+gzcopy_exclude <- function(src, dest = NULL, delete = FALSE, exclusions=character()) {
+  # read in text mode so we can parse
+  srcfile <- file(src, "r")
+  srcdat <- readLines(srcfile,n=1e8)
+  close(srcfile)
+
+  # remove any line matching an exclusion pattern
+  if (length(exclusions)>0){
+    notexcluded <- rep(TRUE,length(srcdat))
+    for (i in 1:length(exclusions)){
+      notexcluded[grepl(exclusions[i],srcdat,useBytes=TRUE)] <- FALSE
+    }
+    srcdat <- srcdat[notexcluded]
+  }
+
+  # Add .gz if destination file is not specified
+  if (is.null(dest))  dest <- paste(src, ".gz", sep = "")
+
+  destfile <- gzfile(dest, "w")
+  writeLines(srcdat, con=destfile)
+  close(destfile)
+
+  if (delete)  unlink(src)
+}
