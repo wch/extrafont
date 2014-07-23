@@ -1,3 +1,11 @@
+extrafont 0.16.0.99
+----------------------------------------------------------------
+
+* Suppress spurious warnings from readLines() in afm_get_info().
+
+* Remove "Character" entry in AFM files because grDevices doesn't understand it.
+  (Thanks to gvfarns)
+
 extrafont 0.16
 ----------------------------------------------------------------
 
