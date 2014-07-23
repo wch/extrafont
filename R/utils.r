@@ -99,13 +99,11 @@ gzcopy_exclude <- function(src, dest = NULL, delete = FALSE, exclusions=characte
   close(srcfile)
 
   # remove any line matching an exclusion pattern
-  if (length(exclusions)>0){
-    notexcluded <- rep(TRUE,length(srcdat))
-    for (i in 1:length(exclusions)){
-      notexcluded[grepl(exclusions[i],srcdat,useBytes=TRUE)] <- FALSE
-    }
-    srcdat <- srcdat[notexcluded]
+  notexcluded <- rep(TRUE,length(srcdat))
+  for (exclusion in exclusions){
+      notexcluded[grepl(exclusion,srcdat,useBytes=TRUE)] <- FALSE
   }
+  srcdat <- srcdat[notexcluded]
 
   # Add .gz if destination file is not specified
   if (is.null(dest))  dest <- paste(src, ".gz", sep = "")
