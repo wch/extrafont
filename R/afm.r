@@ -22,7 +22,9 @@ afm_get_info <- function(filename) {
   } else {
     fd <- file(filename, "r")
   }
-  text <- readLines(fd, 30)  # Reading 30 lines should be more than enough
+  # Reading 30 lines should be more than enough.
+  # Suppress warning: "seek on a gzfile connection returned an internal error"
+  text <- suppressWarnings(readLines(fd, 30))
   close(fd)
 
   # Pull out the font names from lines like this:
