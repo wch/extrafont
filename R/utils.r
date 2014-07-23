@@ -91,12 +91,12 @@ gzcopy <- function(src, dest = NULL, delete = FALSE) {
 # @param src Source filename.
 # @param dest Destination filename. Defaults to source filename with .gz
 # @param delete Delete the source file when done?
-# Currently the maximum file size is 100MB
+# @param exclusions Vector of regular expressions to exclude
 gzcopy_exclude <- function(src, dest = NULL, delete = FALSE, 
                            exclusions = NULL) {
   # read in text mode so we can parse
   srcfile <- file(src, "r")
-  srcdat <- readLines(srcfile, n = 1e8)
+  srcdat <- readLines(srcfile)
   close(srcfile)
 
   # remove any line matching an exclusion pattern
