@@ -137,7 +137,7 @@ loadfonts <- function(device = "pdf", quiet = FALSE) {
 #'
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' loadfonts()
 #' pdf('fonttest.pdf')
 #' library(ggplot2)

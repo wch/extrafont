@@ -36,7 +36,7 @@ font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE,
 #' @param prompt Ask user to install font from CRAN if not already installed
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' font_install('fontcm')
 #' }
 #'
@@ -51,7 +51,7 @@ font_install <- function(fontpkg = NULL, prompt = TRUE) {
   } else {
     # Not installed; try to install from cran
     if (prompt) {
-      resp <- readline(paste('Package "', fontpkg, 
+      resp <- readline(paste('Package "', fontpkg,
         '" not installed. Would you like to install it from CRAN? [y/n] ',
         sep = ""))
       if (tolower(resp) != "y") {
