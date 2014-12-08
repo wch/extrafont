@@ -1,6 +1,8 @@
 extrafont 0.16.0.99
 ----------------------------------------------------------------
 
+* Change \donttest{} entries to \dontrun{}.
+
 * Suppress spurious warnings from readLines() in afm_get_info().
 
 * Remove "Character" entry in AFM files because grDevices doesn't understand it.
