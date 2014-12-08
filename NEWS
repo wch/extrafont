@@ -1,4 +1,4 @@
-extrafont 0.16.0.99
+extrafont 0.17
 ----------------------------------------------------------------
 
 * Change \donttest{} entries to \dontrun{}.
