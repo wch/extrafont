@@ -12,7 +12,7 @@
 #'
 #' @importFrom Rttf2pt1 which_ttf2pt1
 #' @export
-ttf_import <- function(paths = NULL, recursive = TRUE, pattern = NULL) {
+ttf_import <- function(paths = NULL, recursive = TRUE, pattern = NULL, perl = FALSE) {
 
   if (is.null(paths))  paths <- ttf_find_default_path()
 
@@ -21,7 +21,7 @@ ttf_import <- function(paths = NULL, recursive = TRUE, pattern = NULL) {
                                       ignore.case = TRUE))
 
   if (!is.null(pattern)) {
-    matchfiles <- grepl(pattern, basename(ttfiles))
+    matchfiles <- grepl(pattern, basename(ttfiles), perl = perl)
     ttfiles <- ttfiles[matchfiles]
   }
 
@@ -56,7 +56,7 @@ ttf_extract <- function(ttfiles) {
   message("Extracting .afm files from .ttf files...")
 
   # This stores information about the fonts
-  fontdata <- data.frame(fontfile = ttfiles, FontName = "", 
+  fontdata <- data.frame(fontfile = ttfiles, FontName = "",
                          stringsAsFactors = FALSE)
 
   outfiles <- file.path(metrics_path(),
