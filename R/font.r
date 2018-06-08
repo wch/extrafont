@@ -41,6 +41,7 @@ font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE,
 #' }
 #'
 #' @export
+#' @importFrom utils install.packages installed.packages
 font_install <- function(fontpkg = NULL, prompt = TRUE) {
   if (is.null(fontpkg))
     stop("fontpkg must be specified.")

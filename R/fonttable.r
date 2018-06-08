@@ -43,7 +43,7 @@ fonttable_add <- function(fontdata = NULL, append = TRUE) {
   message("Writing font table in ", fonttable_file())
   # remove duplicate entries (caused by symlinks?)
   ft <- unique(ft)
-  write.csv(ft, file = fonttable_file(), row.names = FALSE)
+  utils::write.csv(ft, file = fonttable_file(), row.names = FALSE)
 
   # Update the Fontmap file
   generate_fontmap_file()
