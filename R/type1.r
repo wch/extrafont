@@ -23,12 +23,12 @@ type1_import <- function(pkgdir, pkgname = "") {
 
 
   # Match up with the .pfb files
-  pfbfile <- list.files(file.path(pkgdir, "fonts", "outlines"), "*.pfb",
+  pfbfile <- list.files(file.path(pkgdir, "fonts", "outlines"), "*.pf?",
                         full.names = TRUE, ignore.case = TRUE)
   
   # Set up the pfb data to merge
   pfbdata <- data.frame(fontfile = pfbfile,
-                        base = sub("\\.pfb$", "", basename(pfbfile)))
+                        base = sub("\\.pf.$", "", basename(pfbfile)))
 
   # Line up the afmfile and fontfile columns, matching on 'base'
   fontdata <- merge(fontdata, pfbdata)

@@ -1,9 +1,10 @@
 Package: extrafont
 Title: Tools for Using Fonts
-Version: 0.17
+Version: 0.18
 Author: Winston Chang <winston@stdout.org>,
-Maintainer: Winston Chang <winston@stdout.org>
-Description: Tools to using fonts other than the standard PostScript fonts.
+Maintainer: Paul Murrell <paul@stat.auckland.ac.nz>
+Description: Paul Murrell's FORK for experimentation.
+    Tools to using fonts other than the standard PostScript fonts.
     This package makes it easy to use system TrueType fonts and with PDF or
     PostScript output files, and with bitmap output files in Windows. extrafont
     can also be used with fonts packaged specifically to be used with, such as
