@@ -136,6 +136,7 @@ ttf_find_default_path <- function() {
     paths <-
       c("/usr/share/fonts/",                    # Ubuntu/Debian/Arch/Gentoo
         "/usr/X11R6/lib/X11/fonts/TrueType/",   # RH 6
+        "~/.local/share/fonts/",                # Added with Gnome font viewer
         "~/.fonts/")                            # User fonts
     return(paths[file.exists(paths)])
 
