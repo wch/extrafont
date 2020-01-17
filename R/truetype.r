@@ -151,10 +151,8 @@ ttf_find_default_path <- function() {
 
   } else if (grepl("^mingw", R.version$os)) {
     paths <-
-      c(paste(Sys.getenv("SystemRoot"), "\\Fonts", sep=""),
-        file.path(
-          Sys.getenv()["LOCALAPPDATA"],
-          "Microsoft", "Windows", "Fonts")
+      c(file.path(Sys.getenv("SystemRoot"), "Fonts"),
+        file.path(Sys.getenv("LOCALAPPDATA"), "Microsoft", "Windows", "Fonts")
       )
     return(paths[file.exists(paths)])
   } else {
