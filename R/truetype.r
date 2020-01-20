@@ -150,7 +150,11 @@ ttf_find_default_path <- function() {
     return(paths[file.exists(paths)])
 
   } else if (grepl("^mingw", R.version$os)) {
-    return(paste(Sys.getenv("SystemRoot"), "\\Fonts", sep=""))
+    paths <-
+      c(file.path(Sys.getenv("SystemRoot"), "Fonts"),
+        file.path(Sys.getenv("LOCALAPPDATA"), "Microsoft", "Windows", "Fonts")
+      )
+    return(paths[file.exists(paths)])
   } else {
     stop("Unknown platform. Don't know where to look for truetype fonts. Sorry!")
   }
