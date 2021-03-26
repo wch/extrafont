@@ -1,3 +1,9 @@
+extrafont 0.xx
+----------------------------------------------------------------
+
+* Properly handles the encoding of the path of the executable of Rttf2pt1
+
+
 extrafont 0.17.0.9000
 ----------------------------------------------------------------
 
