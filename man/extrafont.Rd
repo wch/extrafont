@@ -4,7 +4,6 @@
 \name{extrafont}
 \alias{extrafont}
 \alias{package-extrafont}
-\alias{extrafont-package}
 \title{extrafont package}
 \description{
 This package is used for using and embedding fonts other than the
