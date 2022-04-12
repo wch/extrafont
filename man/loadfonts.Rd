@@ -7,24 +7,29 @@
 loadfonts(device = c("all", "pdf", "postscript", "win"), quiet = FALSE)
 }
 \arguments{
-\item{device}{The output device. If \code{"all"}, then it will load \code{"pdf"}, \code{"postscript"}, and \code{"win"} (if on Windows).}
+\item{device}{The output device. If \code{"all"}, then it will load
+\code{"pdf"}, \code{"postscript"}, and \code{"win"} (if on Windows).}
 
-\item{quiet}{If \code{FALSE}, print a status message as each font
-is registered. If \code{TRUE}, don't print.}
+\item{quiet}{If \code{FALSE}, print a status message as each font is
+registered. If \code{TRUE}, don't print.}
 }
 \value{
-
+A named list with up to three elements, one for each device for which
+  fonts were loaded. Each device element is a named list, with an element for
+  each family that was the function attempted to register with that device.
+  The value is \code{NULL} if the function did not register the font family
+  due to problems or because the font family was already registered. If value
+  is the return value of \code{windowsFonts} for \code{"win"},
+  \code{\link{postscriptFonts}} for \code{"postscript"}, and
+  \code{\link{pdfFonts}} for \code{"pdf"}.
 }
 \description{
-This registers fonts so that they can be used with the pdf,
-postscript, or Windows bitmap output device. It must be run
-once in each R session.
+This registers fonts so that they can be used with the pdf, postscript, or
+Windows bitmap output device. It must be run once in each R session.
 }
 \seealso{
-\code{\link{embed_fonts}},
-#ifdef windows
+\code{\link{embed_fonts}}, #ifdef windows
   \code{\link[grDevice]{windowsFont}}, \code{\link[grDevice]{windowsFonts}},
-#endif
-  \code{\link{postscriptFonts}},
-  \code{\link{pdfFonts}}, \code{\link{Type1Font}}.
+  #endif \code{\link{postscriptFonts}}, \code{\link{pdfFonts}},
+  \code{\link{Type1Font}}.
 }

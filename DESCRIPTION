@@ -8,8 +8,7 @@ Description: Tools to using fonts other than the standard PostScript fonts.
     PostScript output files, and with bitmap output files in Windows. extrafont
     can also be used with fonts packaged specifically to be used with, such as
     the fontcm package, which has Computer Modern PostScript fonts with math
-    symbols. See https://github.com/wch/extrafont for instructions and
-    examples.
+    symbols.
 Depends:
     R (>= 2.15)
 Imports:
