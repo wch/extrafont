@@ -18,7 +18,7 @@
 #'   \code{\link{pdfFonts}} for \code{"pdf"}.
 #'
 #' @seealso \code{\link{embed_fonts}}, #ifdef windows
-#'   \code{\link[grDevice]{windowsFont}}, \code{\link[grDevice]{windowsFonts}},
+#'   \code{\link[grDevices]{windowsFont}}, \code{\link[grDevices]{windowsFonts}},
 #'   #endif \code{\link{postscriptFonts}}, \code{\link{pdfFonts}},
 #'   \code{\link{Type1Font}}.
 #' @import grDevices
