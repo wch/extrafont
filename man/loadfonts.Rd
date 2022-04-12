@@ -4,14 +4,16 @@
 \alias{loadfonts}
 \title{Reads the fonttable database and registers those fonts with R}
 \usage{
-loadfonts(device = "pdf", quiet = FALSE)
+loadfonts(device = c("all", "pdf", "postscript", "win"), quiet = FALSE)
 }
 \arguments{
-\item{device}{The output device. Can be \code{"pdf"} (the default),
-\code{"postscript"}, or \code{"win"}.}
+\item{device}{The output device. If \code{"all"}, then it will load \code{"pdf"}, \code{"postscript"}, and \code{"win"} (if on Windows).}
 
 \item{quiet}{If \code{FALSE}, print a status message as each font
 is registered. If \code{TRUE}, don't print.}
+}
+\value{
+
 }
 \description{
 This registers fonts so that they can be used with the pdf,
@@ -19,5 +21,10 @@ postscript, or Windows bitmap output device. It must be run
 once in each R session.
 }
 \seealso{
-\code{\link{embed_fonts}}
+\code{\link{embed_fonts}},
+#ifdef windows
+  \code{\link[grDevice]{windowsFont}}, \code{\link[grDevice]{windowsFonts}},
+#endif
+  \code{\link{postscriptFonts}},
+  \code{\link{pdfFonts}}, \code{\link{Type1Font}}.
 }

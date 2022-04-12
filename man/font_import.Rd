@@ -4,8 +4,7 @@
 \alias{font_import}
 \title{Import system fonts}
 \usage{
-font_import(paths = NULL, recursive = TRUE, prompt = TRUE,
-  pattern = NULL)
+font_import(paths = NULL, recursive = TRUE, prompt = TRUE, pattern = NULL)
 }
 \arguments{
 \item{paths}{A vector of directories to search in. (Default is to auto-detect based on OS)}
