@@ -28,7 +28,7 @@ type1_import <- function(pkgdir, pkgname = "") {
   
   # Set up the pfb/pfa data to merge
   pfbdata <- data.frame(fontfile = pfbfile,
-                        base = sub("\\.pf?$", "", basename(pfbfile)))
+                        base = sub("\\.pf.$", "", basename(pfbfile)))
 
   # Line up the afmfile and fontfile columns, matching on 'base'
   fontdata <- merge(fontdata, pfbdata)
