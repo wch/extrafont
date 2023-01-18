@@ -1,3 +1,11 @@
+extrafont 0.19
+----------------------------------------------------------------
+
+* Fixed #94: the regular expression for finding .pfa and .pfb files was
+  incorrect. (#95)
+
+* Added `/usr/local/share/fonts/` to set of search paths on Linux. (#96)
+
 extrafont 0.18
 ----------------------------------------------------------------
 
