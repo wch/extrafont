@@ -1,4 +1,4 @@
-extrafont 0.17.0.9000
+extrafont 0.18
 ----------------------------------------------------------------
 
 * Extrafont now supports .pfa files in addition to .pfb files. (thanks to Paul
