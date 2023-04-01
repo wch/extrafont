@@ -111,16 +111,18 @@ dev.off()
 
 
 library(ggplot2)
+library(Cairo)
 p <- ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point() +
   ggtitle("Fuel Efficiency of 32 Cars") +
   xlab("Weight (x1000 lb)") + ylab("Miles per Gallon") +
   theme(text=element_text(size=16, family="Impact"))
 
-ggsave("font_ggplot.pdf", plot=p,  width=4, height=4)
+cairo_pdf("font_ggplot.pdf", width=4, height=4)
+p
+dev.off()
 ```
 
-The first time you use a font, it may throw some warnings about unknown characters.
-This should be harmless, but if it causes any problems, please report them.
+Just test it on windows. Using cairo_pdf won't incur any warnings and the pdf file could be created properly, therefore you don't need to take the following steps to emb the fonts. 
 
 
 ## Embed the fonts
@@ -131,13 +133,6 @@ All other fonts should be embedded into the PDF files.
 
 
 First, if you are running Windows, you may need to tell it where the Ghostscript program is, for embedding fonts. (See Windows installation notes below.)
-
-```R
-# Needed only on Windows - run once per R session
-# Adjust the path to match your installation of Ghostscript
-Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
-```
-
 
 As the name suggests, `embed_fonts()` will embed the fonts:
 
@@ -198,18 +193,6 @@ See the [fontcm](https://github.com/wch/fontcm) package containing Computer Mode
 The source code for the utility program `ttf2pt1` is in the package Rttf2pt1.
 CRAN has pre-compiled Windows and Mac OS X binaries.
 For other platforms, and when installing from source, it will be compiled on installation, so you need a build environment on your system.
-
-
-## Windows installation notes
-
-In Windows, you need to make sure that Ghostscript is installed.
-
-In each R session where you embed fonts, you will need to tell R where Ghostscript is installed.
-For example, when Ghostscript 9.05 is installed to the default location, running this command will do it (adjust the path for your installation):
-
-```R
-Sys.setenv(R_GSCMD="C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
-```
 
 ## Resetting the font database
 
