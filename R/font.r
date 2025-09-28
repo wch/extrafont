@@ -12,7 +12,7 @@
 #'
 #' @export
 font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE,
-                 pattern = NULL) {
+                 pattern = NULL, perl = FALSE) {
 
   if (prompt) {
     resp <- readline("Importing fonts may take a few minutes, depending on the number of fonts and the speed of the system.\nContinue? [y/n] ")
@@ -22,7 +22,7 @@ font_import <- function(paths = NULL, recursive = TRUE, prompt = TRUE,
     }
   }
 
-  ttf_import(paths, recursive, pattern)
+  ttf_import(paths, recursive, pattern, perl)
 }
 
 
